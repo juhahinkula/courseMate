@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Studentlist</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
+ 
+</head>
+<body>
+	<div th:replace="header :: header">...</div>
+    
+    <div style="padding:80px 20px">
+    <table class="table table-striped">
+		<tr>
+		    <th>Name</th>
+		    <th>Actions</th>
+		</tr>  
+    	<tr th:each = "course : ${courses}">
+    		<td th:text="${course.name}"></td>
+    		<td>
+    			<a th:href="@{/editcourse/{id}(id=${course.courseid})}" class="btn btn-primary btn-xs">Edit</a>
+    			<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/coursestudents/{id}(id=${course.courseid})}" class="btn btn-primary btn-xs">Students</a>
+    			<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/deletecourse/{id}(id=${course.courseid})}" class="btn btn-danger btn-xs">Delete</a>
+    		</td>
+    	</tr>
+    </table>
+    <a href="/addcourse" class="btn btn-primary">Add course</a>
+	</div>    
+</body>
+</html>

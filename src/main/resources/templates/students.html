@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Studentlist</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
+ 
+</head>
+<body>
+	<div th:replace="header :: header">...</div>
+    
+    <div style="padding:80px 20px">
+    <table class="table table-striped">
+		<tr>
+		    <th>Name</th>
+		    <th>Email</th>
+		    <th>Department</th>
+		    <th>Courses</th>
+		    <th>Actions</th>
+		</tr>  
+    	<tr th:each = "student : ${students}">
+    		<td th:text="${student.firstName} + ' ' + ${student.lastName}"></td>
+    		<td th:text="${student.email}"></td>
+    		<td th:text="${student.department}"></td>
+    		<td>
+				<span th:each="course,iterStat : ${student.courses}">
+					<span th:text="${course.name}"/><th:block th:if="${!iterStat.last}">,</th:block>
+				</span>    		
+    		</td>
+    		<td>
+    			<a th:href="@{/addStudentCourse/{id}(id=${student.id})}" class="btn btn-primary btn-xs">Add Course</a>
+    			<a th:href="@{/edit/{id}(id=${student.id})}" class="btn btn-primary btn-xs">Edit</a>
+    			<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/delete/{id}(id=${student.id})}" class="btn btn-danger btn-xs">Delete</a>
+    		</td>
+    	</tr>
+    </table>
+    <a href="/add" class="btn btn-primary">Add Student</a>
+	</div>    
+</body>
+</html>
