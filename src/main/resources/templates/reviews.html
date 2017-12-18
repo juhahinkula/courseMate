@@ -17,12 +17,14 @@
 		    <th>Student</th>
 		    <th>Grade</th>
 		    <th>Description</th>
+		    <th>Reviewed by</th>
 		</tr>  
     	<tr th:each = "review : ${reviews}">
     		<td th:text="${review.courseid}"></td>
     		<td th:text="${review.student.firstName} + ' ' + ${review.student.lastName}"></td>
     		<td th:text="${review.grade}"></td>
     		<td th:text="${review.description}"></td>
+    		<td th:text="${review.createdBy}"></td>    		
     	</tr>
     </table>
 	</div>    
