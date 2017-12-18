@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Reviews</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
+ 
+</head>
+<body>
+	<div th:replace="header :: header">...</div>
+    
+    <div style="padding:80px 20px">
+    <table class="table table-striped">
+		<tr>
+		    <th>Course</th>
+		    <th>Student</th>
+		    <th>Grade</th>
+		    <th>Description</th>
+		</tr>  
+    	<tr th:each = "review : ${reviews}">
+    		<td th:text="${review.courseid}"></td>
+    		<td th:text="${review.studentid}"></td>
+    		<td th:text="${review.grade}"></td>
+    		<td th:text="${review.description}"></td>
+    	</tr>
+    </table>
+	</div>    
+</body>
+</html>

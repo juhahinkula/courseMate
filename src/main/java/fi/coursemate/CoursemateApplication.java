@@ -15,6 +15,12 @@ import fi.coursemate.domain.StudentRepository;
 import fi.coursemate.domain.User;
 import fi.coursemate.domain.UserRepository;
 
+/**
+ * CourseMate
+ * 
+ * @author Juha Hinkula
+ *
+ */
 @SpringBootApplication
 public class CoursemateApplication {
 
@@ -33,7 +39,7 @@ public class CoursemateApplication {
 			// save students
 			Student student1 = new Student("John", "Johnson", "IT", "john@john.com"); 
 			repository.save(new Student("Steve", "Stevens", "IT", "steve.stevent@st.com"));
-			repository.save(new Student("Mary", "Robinson", "IT", "mary@robinson.com"));
+			Student student2 = new Student("Mary", "Robinson", "IT", "mary@robinson.com");
 			repository.save(new Student("Kate", "Keystone", "Nursery","kate@kate.com"));
 			repository.save(new Student("Diana", "Doll", "Business","diana@doll.com"));
 			
@@ -51,6 +57,9 @@ public class CoursemateApplication {
 			
 			student1.setCourses(courses); 
 			repository.save(student1);
+			
+			student2.setCourses(courses);
+			repository.save(student2);
 
 			// Create users with BCrypt encoded password (user/user, admin/admin)
 			User user1 = new User("user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER");

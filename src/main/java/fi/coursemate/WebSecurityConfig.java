@@ -14,7 +14,6 @@ import fi.coursemate.service.UserDetailServiceImpl;
 
 @Configuration
 @EnableWebSecurity
-@ComponentScan("fi.haagahelia.course")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailServiceImpl userDetailsService;
@@ -29,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
             .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/students")
+                .defaultSuccessUrl("/courses")
                 .permitAll()
             	.and()
             .logout()
