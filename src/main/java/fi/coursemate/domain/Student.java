@@ -8,14 +8,24 @@ import javax.persistence.*;
 
 @Entity
 public class Student {
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)	
 	private long id;	 
+    
+    @Column(name = "firstname")     
 	private String firstName;	
-	private String lastName;
+
+    @Column(name = "lastname")
+    private String lastName;
+    
 	private String department;    
     private String email;    
     
+	@ManyToMany(cascade = CascadeType.MERGE)
+	@JoinTable(name = "student_course", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = { @JoinColumn(name = "courseid") })
 	private Set<Course> courses = new HashSet<Course>(0);    
     
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="student")
 	private List<PeerReview> reviews;
 		
 	
@@ -30,8 +40,6 @@ public class Student {
 		this.email = email;
 	}
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)	
 	public long getId() {
 		return id;
 	}
@@ -39,8 +47,7 @@ public class Student {
 	public void setId(long id) {
 		this.id = id;
 	}
-
-    @Column(name = "firstname")   	
+  	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -48,8 +55,7 @@ public class Student {
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-
-    @Column(name = "lastname")	
+	
 	public String getLastName() {
 		return lastName;
 	}
@@ -58,7 +64,6 @@ public class Student {
 		this.lastName = lastName;
 	}
 
-    @Column(name = "department")
 	public String getDepartment() {
 		return department;
 	}
@@ -67,7 +72,6 @@ public class Student {
 		this.department = department;
 	}
 
-    @Column(name = "email")	
     public String getEmail() {
 		return email;
 	}
@@ -76,7 +80,6 @@ public class Student {
 		this.email = email;
 	}	
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="student")
 	public List<PeerReview> getReviews() {
 		return reviews;
 	}
@@ -85,8 +88,6 @@ public class Student {
 		this.reviews = reviews;
 	}
 
-	@ManyToMany(cascade = CascadeType.MERGE)
-	@JoinTable(name = "student_course", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = { @JoinColumn(name = "courseid") })
 	public Set<Course> getCourses() {
 		return this.courses;
 	}

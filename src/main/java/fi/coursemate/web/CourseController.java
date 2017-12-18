@@ -83,6 +83,7 @@ public class CourseController {
     @RequestMapping(value = "/review/{id}/{courseid}")
     public String review(@PathVariable("id") Long studentId, @PathVariable("courseid") Long courseId, Model model){
     	Student s = repository.findOne(studentId);
+    	Course c = crepository.findOne(courseId);
     	List<PeerReview> reviews = prepository.findByStudentAndCourseid(s, courseId);
     	PeerReview review;
     	if (!reviews.isEmpty())
