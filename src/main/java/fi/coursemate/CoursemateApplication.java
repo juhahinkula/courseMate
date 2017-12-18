@@ -38,8 +38,8 @@ public class CoursemateApplication {
 		return (args) -> {
 			// save students
 			Student student1 = new Student("John", "Johnson", "IT", "john@john.com"); 
-			repository.save(new Student("Steve", "Stevens", "IT", "steve.stevent@st.com"));
 			Student student2 = new Student("Mary", "Robinson", "IT", "mary@robinson.com");
+			Student student3 = new Student("Steve", "Stevens", "IT", "steve.stevent@st.com");
 			repository.save(new Student("Kate", "Keystone", "Nursery","kate@kate.com"));
 			repository.save(new Student("Diana", "Doll", "Business","diana@doll.com"));
 			
@@ -61,6 +61,12 @@ public class CoursemateApplication {
 			student2.setCourses(courses);
 			repository.save(student2);
 
+			Set<Course> courses2 = new HashSet<Course>();			
+			courses2.add(course1);
+			
+			student3.setCourses(courses2);
+			repository.save(student3);
+			
 			// Create users with BCrypt encoded password (user/user, admin/admin)
 			User user1 = new User("user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER");
 			User user2 = new User("admin", "$2a$08$bCCcGjB03eulCWt3CY0AZew2rVzXFyouUolL5dkL/pBgFkUH9O4J2", "ADMIN");
