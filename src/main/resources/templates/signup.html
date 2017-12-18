@@ -13,14 +13,29 @@
 				placeholder="Username" />
 			<p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</p>
 			<div style="clear: both; display: block; height: 10px;"></div>	
+			<input type="text" th:field="*{studentnumber}" class="form-control"
+				placeholder="Student number" />
+			<p th:if="${#fields.hasErrors('studentnumber')}" th:errors="*{studentnumber}">Student number Error</p>
+			<div style="clear: both; display: block; height: 10px;"></div>	
+			<input type="text" th:field="*{firstName}" class="form-control"
+				placeholder="First name" />
+			<p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First name Error</p>
+			<div style="clear: both; display: block; height: 10px;"></div>	
+			<input type="text" th:field="*{lastName}" class="form-control"
+				placeholder="Last name" />
+			<p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last name Error</p>
+			<div style="clear: both; display: block; height: 10px;"></div>	
+			<input type="text" th:field="*{email}" class="form-control"
+				placeholder="Email" />
+			<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</p>
+			<div style="clear: both; display: block; height: 10px;"></div>	
 			<input type="password" th:field="*{password}" class="form-control"
 				placeholder="Password" />
 			<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</p>
 			<div style="clear: both; display: block; height: 10px;"></div>	
 			<input type="password" th:field="*{passwordCheck}" class="form-control"
 				placeholder="Re-enter Password" />
-			<p th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}">Password Match Error</p>
-			
+			<p th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}">Password Match Error</p>			
 			<div style="clear: both; display: block; height: 10px;"></div>	
 			<input type="submit" class="btn btn-primary" value="Save"></input>		
 		</form>

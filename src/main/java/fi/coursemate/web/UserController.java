@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.validation.Valid;
 
 import fi.coursemate.domain.SignupForm;
+import fi.coursemate.domain.Student;
+import fi.coursemate.domain.StudentRepository;
 import fi.coursemate.domain.User;
 import fi.coursemate.domain.UserRepository;
 
@@ -20,7 +22,10 @@ import fi.coursemate.domain.UserRepository;
 public class UserController {
 	@Autowired
     private UserRepository repository; 
-	
+
+	@Autowired
+    private StudentRepository srepository; 
+		
     @RequestMapping(value = "signup")
     public String addStudent(Model model){
     	model.addAttribute("signupform", new SignupForm());
@@ -40,6 +45,10 @@ public class UserController {
 		    	newUser.setPasswordHash(hashPwd);
 		    	newUser.setUsername(signupForm.getUsername());
 		    	newUser.setRole("USER");
+		    	
+		    	Student newStudent = new Student(signupForm.getStudentnumber(), signupForm.getFirstName(), signupForm.getLastName(), "", signupForm.getEmail());
+		    	srepository.save(newStudent);
+		    	
 		    	if (repository.findByUsername(signupForm.getUsername()) == null) {
 		    		repository.save(newUser);
 		    	}

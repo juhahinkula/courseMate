@@ -19,8 +19,8 @@
     	<tr th:each = "course : ${courses}">
     		<td th:text="${course.name}"></td>
     		<td>
+    			<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/coursestudents/{id}(id=${course.courseid})}" class="btn btn-primary btn-xs">Review</a>
     			<a th:href="@{/editcourse/{id}(id=${course.courseid})}" class="btn btn-primary btn-xs">Edit</a>
-    			<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/coursestudents/{id}(id=${course.courseid})}" class="btn btn-primary btn-xs">Students</a>
     			<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/deletecourse/{id}(id=${course.courseid})}" class="btn btn-danger btn-xs">Delete</a>
     		</td>
     	</tr>

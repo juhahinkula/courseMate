@@ -11,13 +11,14 @@ public class Student {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)	
 	private long id;	 
-    
+
     @Column(name = "firstname")     
 	private String firstName;	
 
     @Column(name = "lastname")
     private String lastName;
-    
+
+    private String studentNumber;
 	private String department;    
     private String email;    
     
@@ -32,8 +33,9 @@ public class Student {
     public Student() {
     }
 
-	public Student(String firstName, String lastName, String department, String email) {
+	public Student(String studentNumber, String firstName, String lastName, String department, String email) {
 		super();
+		this.studentNumber = studentNumber;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.department = department;
@@ -62,6 +64,14 @@ public class Student {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public String getStudentNumber() {
+		return studentNumber;
+	}
+
+	public void setStudentNumber(String studentNumber) {
+		this.studentNumber = studentNumber;
 	}
 
 	public String getDepartment() {

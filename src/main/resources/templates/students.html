@@ -13,6 +13,7 @@
     <div style="padding:80px 20px">
     <table class="table table-striped">
 		<tr>
+		    <th>Student number</th>
 		    <th>Name</th>
 		    <th>Email</th>
 		    <th>Department</th>
@@ -20,6 +21,7 @@
 		    <th>Actions</th>
 		</tr>  
     	<tr th:each = "student : ${students}">
+    		<td th:text="${student.studentNumber}"></td>
     		<td th:text="${student.firstName} + ' ' + ${student.lastName}"></td>
     		<td th:text="${student.email}"></td>
     		<td th:text="${student.department}"></td>

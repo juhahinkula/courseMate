@@ -15,11 +15,11 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li th:classappend="${module == 'students' ? 'active' : ''}">
-              <a href="#" th:href="@{/students}">Students</a>
-            </li>
             <li th:classappend="${module == 'courses' ? 'active' : ''}">
               <a href="#" th:href="@{/courses}">Courses</a>
+            </li>            
+            <li th:classappend="${module == 'students' ? 'active' : ''}">
+              <a href="#" th:href="@{/students}">Students</a>
             </li>
             <li th:classappend="${module == 'review' ? 'active' : ''}">
               <a href="#" th:href="@{/reviews}">Reviews</a>
