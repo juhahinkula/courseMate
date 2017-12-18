@@ -4,40 +4,45 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class PeerReview {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)	
-	private long id;
+	private long reviewid;
     
-    private long studentid;
+    @ManyToOne
+	@JoinColumn(name = "id")
+	private Student student;
+    
     private long courseid;
     private int grade;
     private String description;
 	
     public PeerReview() {}
     
-    public PeerReview(long studentid, long courseid) {
+    public PeerReview(Student student, long courseid) {
 		super();
-		this.studentid = studentid;
+		this.student = student;
 		this.courseid = courseid;
 	}
+	
+	public long getReviewid() {
+		return reviewid;
+	}
 
-	public long getId() {
-		return id;
+	public void setReviewid(long reviewid) {
+		this.reviewid = reviewid;
+	}
+
+	public Student getStudent() {
+		return student;
 	}
 	
-    public void setId(long id) {
-		this.id = id;
-	}
-	
-	public long getStudentid() {
-		return studentid;
-	}
-	
-	public void setStudentid(long studentid) {
-		this.studentid = studentid;
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 	
 	public long getCourseid() {

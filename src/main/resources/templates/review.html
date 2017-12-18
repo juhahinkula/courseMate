@@ -9,7 +9,8 @@
 	<h2>Review</h2>
 	<div class="col-md-4">
 		<form th:object="${review}" th:action="@{/../savereview}" action="#" method="post">
-			<input type="hidden" th:field="*{id}" class="form-control"/>
+			<input type="hidden" th:field="*{reviewid}" class="form-control"/>
+			<input type="hidden" th:field="*{student}" class="form-control"/>
 			<input type="number" th:field="*{grade}" class="form-control"
 				placeholder="1-5" />
 			<div style="clear: both; display: block; height: 10px;"></div>

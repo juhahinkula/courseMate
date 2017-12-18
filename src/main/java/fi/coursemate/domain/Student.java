@@ -1,6 +1,7 @@
 package fi.coursemate.domain;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -15,6 +16,9 @@ public class Student {
     
 	private Set<Course> courses = new HashSet<Course>(0);    
     
+	private List<PeerReview> reviews;
+		
+	
     public Student() {
     }
 
@@ -72,12 +76,21 @@ public class Student {
 		this.email = email;
 	}	
 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="student")
+	public List<PeerReview> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<PeerReview> reviews) {
+		this.reviews = reviews;
+	}
+
 	@ManyToMany(cascade = CascadeType.MERGE)
 	@JoinTable(name = "student_course", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = { @JoinColumn(name = "courseid") })
 	public Set<Course> getCourses() {
 		return this.courses;
 	}
-
+	
 	public void setCourses(Set<Course> courses) {
 		this.courses = courses;
 	}

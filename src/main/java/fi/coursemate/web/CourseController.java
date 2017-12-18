@@ -82,18 +82,19 @@ public class CourseController {
      */
     @RequestMapping(value = "/review/{id}/{courseid}")
     public String review(@PathVariable("id") Long studentId, @PathVariable("courseid") Long courseId, Model model){
-    	List<PeerReview> reviews = prepository.findByStudentidAndCourseid(studentId, courseId);
+    	Student s = repository.findOne(studentId);
+    	List<PeerReview> reviews = prepository.findByStudentAndCourseid(s, courseId);
     	PeerReview review;
     	if (!reviews.isEmpty())
     		review = reviews.get(0);
     	else
-    		review = new PeerReview(studentId, courseId);
+    		review = new PeerReview(s, courseId);
     	model.addAttribute("review", review);
         return "review";
     }	
 
     @RequestMapping(value = "savereview", method = RequestMethod.POST)
-    public String save(PeerReview review){
+    public String save(PeerReview review) {
         prepository.save(review);
     	return "redirect:/courses";
     }
@@ -102,6 +103,8 @@ public class CourseController {
 	@RequestMapping("/reviews")
 	public String reviewList(Model model) {
 		List<PeerReview> reviews = (List<PeerReview>) prepository.findAll();
+		PeerReview p = reviews.get(0);
+		System.out.println(p.getStudent().toString());
 		model.addAttribute("reviews", reviews);
     	return "reviews";
     }

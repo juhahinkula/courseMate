@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface PeerReviewRepository extends CrudRepository<PeerReview, Long> {
   
-	List<PeerReview> findByStudentidAndCourseid(Long studentid, Long courseid);
+	List<PeerReview> findByStudentAndCourseid(Student studentid, Long courseid);
 	
 }
