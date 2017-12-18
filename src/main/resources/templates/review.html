@@ -6,8 +6,9 @@
 	<link type="text/css" rel="stylesheet" th:href="@{/../css/bootstrap.min.css}" />
 </head>
 <body>
-	<h2>Review</h2>
-	<div class="col-md-4">
+	<div th:replace="header :: header">...</div>
+	<div class="col-md-4" style="padding:80px 20px">
+		<h3>Review</h3>
 		<p th:text="${review.student.firstName} + ' ' + ${review.student.lastName}" class="form-control"/>
 		<form th:object="${review}" th:action="@{/../savereview}" action="#" method="post">
 			<input type="hidden" th:field="*{reviewid}" class="form-control"/>

@@ -6,10 +6,14 @@
 	<link type="text/css" rel="stylesheet" th:href="@{../css/bootstrap.min.css}" />
 </head>
 <body>
-	<h1>Edit student</h1>
-	<div class="col-md-4">
+	<div th:replace="header :: header">...</div>
+	<div class="col-md-4" style="padding:80px 20px">
+		<h3>Edit Student</h3>
 		<form th:object="${student}" th:action="@{../save}" action="#" method="post">
 			<input type="hidden" th:field="*{id}" class="form-control"/>
+			<input type="text" th:field="*{studentNumber}" class="form-control"
+				placeholder="Student number" />
+			<div style="clear: both; display: block; height: 10px;"></div>
 			<input type="text" th:field="*{firstName}" class="form-control"
 				placeholder="Firstname" />
 			<div style="clear: both; display: block; height: 10px;"></div>
@@ -22,6 +26,7 @@
 			<input type="text" th:field="*{email}" class="form-control"
 				placeholder="Email" />
 			<div style="clear: both; display: block; height: 10px;"></div>
+			<input type="hidden" th:field="*{user.id}" class="form-control"/>
 			<input type="submit" class="btn btn-primary" value="Save"></input>
 		</form>
 	</div>

@@ -96,16 +96,15 @@ public class CourseController {
 
     @RequestMapping(value = "savereview", method = RequestMethod.POST)
     public String save(PeerReview review) {
+    	Long courseid = review.getCourseid();
         prepository.save(review);
-    	return "redirect:/courses";
+    	return "redirect:/coursestudents/" + Long.toString(courseid);
     }
 
 
 	@RequestMapping("/reviews")
 	public String reviewList(Model model) {
 		List<PeerReview> reviews = (List<PeerReview>) prepository.findAll();
-		PeerReview p = reviews.get(0);
-		System.out.println(p.getStudent().toString());
 		model.addAttribute("reviews", reviews);
     	return "reviews";
     }

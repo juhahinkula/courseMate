@@ -19,10 +19,15 @@ public class User {
 
     @Column(name = "role", nullable = false)
     private String role;
-
+    
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "user")
+    private Student student;    
+    
     public User() {
     }
-    
+     
 	public User(String username, String passwordHash, String role) {
 		super();
 		this.username = username;
@@ -45,13 +50,21 @@ public class User {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
+	
 	public String getPasswordHash() {
 		return passwordHash;
 	}
 
 	public void setPasswordHash(String passwordHash) {
 		this.passwordHash = passwordHash;
+	}
+		
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 
 	public String getRole() {

@@ -8,7 +8,7 @@
 <body>
 	<div th:replace="header :: header">...</div>
 	<div class="col-md-4" style="padding:80px 20px">
-		<h2>New Student</h2>
+		<h3>New Student</h3>
 		<form th:object="${student}" th:action="@{save}" action="#" method="post">
 			<input type="text" th:field="*{studentNumber}" class="form-control"
 				placeholder="Studentnumber" />

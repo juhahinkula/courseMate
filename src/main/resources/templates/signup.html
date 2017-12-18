@@ -29,6 +29,10 @@
 				placeholder="Email" />
 			<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</p>
 			<div style="clear: both; display: block; height: 10px;"></div>	
+			<input type="text" th:field="*{department}" class="form-control"
+				placeholder="Department" />
+			<p th:if="${#fields.hasErrors('department')}" th:errors="*{department}">Department Error</p>
+			<div style="clear: both; display: block; height: 10px;"></div>	
 			<input type="password" th:field="*{password}" class="form-control"
 				placeholder="Password" />
 			<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</p>

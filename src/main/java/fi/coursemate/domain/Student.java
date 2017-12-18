@@ -21,6 +21,10 @@ public class Student {
     private String studentNumber;
 	private String department;    
     private String email;    
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id", nullable = false)
+    private User user;
     
 	@ManyToMany(cascade = CascadeType.MERGE)
 	@JoinTable(name = "student_course", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = { @JoinColumn(name = "courseid") })
@@ -89,6 +93,14 @@ public class Student {
 	public void setEmail(String email) {
 		this.email = email;
 	}	
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public List<PeerReview> getReviews() {
 		return reviews;

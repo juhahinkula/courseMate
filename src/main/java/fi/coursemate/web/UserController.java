@@ -46,11 +46,12 @@ public class UserController {
 		    	newUser.setUsername(signupForm.getUsername());
 		    	newUser.setRole("USER");
 		    	
-		    	Student newStudent = new Student(signupForm.getStudentnumber(), signupForm.getFirstName(), signupForm.getLastName(), "", signupForm.getEmail());
-		    	srepository.save(newStudent);
+		    	Student newStudent = new Student(signupForm.getStudentnumber(), signupForm.getFirstName(), signupForm.getLastName(), signupForm.getDepartment(), signupForm.getEmail());
+		    	newStudent.setUser(newUser);
 		    	
 		    	if (repository.findByUsername(signupForm.getUsername()) == null) {
 		    		repository.save(newUser);
+			    	srepository.save(newStudent);
 		    	}
 		    	else {
 	    			bindingResult.rejectValue("username", "error.userexists", "Username already exists");    	

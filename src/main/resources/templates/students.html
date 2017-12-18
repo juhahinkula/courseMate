@@ -17,6 +17,7 @@
 		    <th>Name</th>
 		    <th>Email</th>
 		    <th>Department</th>
+		    <th>Username</th>		    
 		    <th>Courses</th>
 		    <th>Actions</th>
 		</tr>  
@@ -25,6 +26,7 @@
     		<td th:text="${student.firstName} + ' ' + ${student.lastName}"></td>
     		<td th:text="${student.email}"></td>
     		<td th:text="${student.department}"></td>
+    		<td th:text="${student.user.username}"></td>
     		<td>
 				<span th:each="course,iterStat : ${student.courses}">
 					<span th:text="${course.name}"/><th:block th:if="${!iterStat.last}">,</th:block>
