@@ -10,6 +10,9 @@
 	<div class="col-md-4" style="padding:80px 20px">
 		<h3>New Course</h3>
 		<form th:object="${course}" th:action="@{savecourse}" action="#" method="post">
+			<input type="text" th:field="*{coursecode}" class="form-control"
+				placeholder="Code" />
+			<div style="clear: both; display: block; height: 10px;"></div>
 			<input type="text" th:field="*{name}" class="form-control"
 				placeholder="Name" />
 			<div style="clear: both; display: block; height: 10px;"></div>

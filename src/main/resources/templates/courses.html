@@ -13,13 +13,17 @@
     <div style="padding:80px 20px">
     <table class="table table-striped">
 		<tr>
+		    <th>Code</th>
 		    <th>Name</th>
+		    <th>Owner</th>		    
 		    <th>Actions</th>
 		</tr>  
     	<tr th:each = "course : ${courses}">
+    		<td th:text="${course.coursecode}"></td>
     		<td th:text="${course.name}"></td>
+    		<td th:text="${course.createdBy}"></td>
     		<td>
-    			<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/coursestudents/{id}(id=${course.courseid})}" class="btn btn-primary btn-xs">Review</a>
+    			<a th:href="@{/coursestudents/{id}(id=${course.courseid})}" class="btn btn-primary btn-xs">Review</a>
     			<a th:href="@{/editcourse/{id}(id=${course.courseid})}" class="btn btn-primary btn-xs">Edit</a>
     			<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/deletecourse/{id}(id=${course.courseid})}" class="btn btn-danger btn-xs">Delete</a>
     		</td>

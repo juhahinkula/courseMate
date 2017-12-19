@@ -77,14 +77,15 @@ public class CourseController {
      * 
      * @param studentId
      * @param courseId
+     * @param reviewer
      * @param model
      * @return review view
      */
-    @RequestMapping(value = "/review/{id}/{courseid}")
-    public String review(@PathVariable("id") Long studentId, @PathVariable("courseid") Long courseId, Model model){
+    @RequestMapping(value = "/review/{id}/{courseid}/{reviewer}")
+    public String review(@PathVariable("id") Long studentId, @PathVariable("courseid") Long courseId, @PathVariable("reviewer") String reviewer, Model model){
     	Student s = repository.findOne(studentId);
     	Course c = crepository.findOne(courseId);
-    	List<PeerReview> reviews = prepository.findByStudentAndCourseid(s, courseId);
+    	List<PeerReview> reviews = prepository.findByStudentAndCourseidAndCreatedBy(s, courseId, reviewer);
     	PeerReview review;
     	if (!reviews.isEmpty())
     		review = reviews.get(0);
