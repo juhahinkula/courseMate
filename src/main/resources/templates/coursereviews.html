@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" 
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>Studentlist</title>
+    <title>Reviews</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link type="text/css" rel="stylesheet" th:href="@{../css/bootstrap.min.css}" />
  
@@ -13,16 +13,18 @@
     <div style="padding:80px 20px">
     <table class="table table-striped">
 		<tr>
-		    <th>Name</th>
-		    <th>Email</th>
-		    <th>Actions</th>
+		    <th>Course</th>
+		    <th>Student</th>
+		    <th>Grade</th>
+		    <th>Description</th>
+		    <th>Reviewed by</th>
 		</tr>  
-    	<tr th:each = "student : ${students}">
-    		<td th:text="${student.firstName} + ' ' + ${student.lastName}"></td>
-    		<td th:text="${student.email}"></td>
-    		<td>
-    			<a th:href="@{/review/{id}/{courseid}/{reviewer}(id=${student.id}, courseid=${courseid}, reviewer='user1')}" class="btn btn-primary btn-xs">Review</a>
-    		</td>
+    	<tr th:each = "review : ${reviews}">
+    		<td th:text="${review.courseid}"></td>
+    		<td th:text="${review.student.firstName} + ' ' + ${review.student.lastName}"></td>
+    		<td th:text="${review.grade}"></td>
+    		<td th:text="${review.description}"></td>
+    		<td th:text="${review.createdBy}"></td>    		
     	</tr>
     </table>
 	</div>    

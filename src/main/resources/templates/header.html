@@ -28,12 +28,12 @@
           <ul class="nav navbar-nav navbar-right">
             <li>
               <a href="/signin" th:href="@{/login}">
-                <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;Sign in
+                Sign in
               </a>
             </li>
             <li>
               <a href="/logout" th:href="@{#}" onclick="$('#form').submit();">
-                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout
+                Logout
               </a>
              <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
             </li>

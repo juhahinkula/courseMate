@@ -116,4 +116,17 @@ public class CourseController {
     	return "reviews";
     }
     
+	/**
+	 * Show reviews by course
+	 * @param courseId
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/reviews/{courseid}")
+	public String courseReviews(@PathVariable("courseid") Long courseId, Model model) {
+		List<PeerReview> reviews = (List<PeerReview>) prepository.findByCourseidOrderByStudentAscCourseidAsc(courseId);
+		model.addAttribute("reviews", reviews);
+    	return "coursereviews";
+    }
+    	
 }
