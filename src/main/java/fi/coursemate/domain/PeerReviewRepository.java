@@ -10,4 +10,6 @@ public interface PeerReviewRepository extends CrudRepository<PeerReview, Long> {
 
 	List<PeerReview> findByStudentAndCourseidAndCreatedBy(Student student, Long courseid, String reviewer);
 
+	List<PeerReview> findAllByOrderByStudentAsc();
+	
 }

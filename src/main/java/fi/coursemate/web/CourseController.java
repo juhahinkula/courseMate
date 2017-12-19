@@ -85,6 +85,8 @@ public class CourseController {
     public String review(@PathVariable("id") Long studentId, @PathVariable("courseid") Long courseId, @PathVariable("reviewer") String reviewer, Model model){
     	Student s = repository.findOne(studentId);
     	Course c = crepository.findOne(courseId);
+    	//TODO: query not working
+    	// Check if review already exist
     	List<PeerReview> reviews = prepository.findByStudentAndCourseidAndCreatedBy(s, courseId, reviewer);
     	PeerReview review;
     	if (!reviews.isEmpty())
@@ -102,10 +104,14 @@ public class CourseController {
     	return "redirect:/coursestudents/" + Long.toString(courseid);
     }
 
-
+	/**
+	 * Show all reviews
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/reviews")
 	public String reviewList(Model model) {
-		List<PeerReview> reviews = (List<PeerReview>) prepository.findAll();
+		List<PeerReview> reviews = (List<PeerReview>) prepository.findAllByOrderByStudentAsc();
 		model.addAttribute("reviews", reviews);
     	return "reviews";
     }
