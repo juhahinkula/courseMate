@@ -28,7 +28,7 @@
 	          </ul>
           </div>
           <ul class="nav navbar-nav navbar-right">
-            <li>          
+            <li sec:authorize="isAuthenticated()">          
               <a href="/logout" th:href="@{#}" onclick="document.getElementById('form').submit();">
                 Logout
               </a>

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,25 +45,29 @@ public class CourseController {
 		model.addAttribute("courseid", courseid);
 		return "coursestudents";
     }	
-	
+
+	@PreAuthorize("hasAuthority('ADMIN')")	
     @RequestMapping(value = "addcourse")
     public String addCourse(Model model){
     	model.addAttribute("course", new Course());
         return "addCourse";
     }	
 
+	@PreAuthorize("hasAuthority('ADMIN')")	
     @RequestMapping(value = "/editcourse/{id}")
     public String editCourse(@PathVariable("id") Long courseId, Model model){
     	model.addAttribute("course", crepository.findOne(courseId));
         return "editCourse";
     }	    
-    
+	
+	@PreAuthorize("hasAuthority('ADMIN')")    
     @RequestMapping(value = "savecourse", method = RequestMethod.POST)
     public String save(Course course){
         crepository.save(course);
     	return "redirect:/courses";
     }
     
+	@PreAuthorize("hasAuthority('ADMIN')")	
     @RequestMapping(value = "/deletecourse/{id}", method = RequestMethod.GET)
     public String deleteCourse(@PathVariable("id") Long courseId, Model model) {
     	crepository.delete(courseId);
@@ -106,6 +111,7 @@ public class CourseController {
 	 * @param model
 	 * @return
 	 */
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping("/reviews")
 	public String reviewList(Model model) {
 		List<PeerReview> reviews = (List<PeerReview>) prepository.findAllByOrderByStudentAsc();

@@ -6,6 +6,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Student {
     @Id
@@ -24,13 +26,16 @@ public class Student {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id", nullable = false)
+    @JsonIgnore
     private User user;
     
 	@ManyToMany(cascade = CascadeType.MERGE)
 	@JoinTable(name = "student_course", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = { @JoinColumn(name = "courseid") })
+    @JsonIgnore
 	private Set<Course> courses = new HashSet<Course>(0);    
     
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="student")
+    @JsonIgnore
 	private List<PeerReview> reviews;
 		
 	
