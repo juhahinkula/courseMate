@@ -32,6 +32,7 @@ public class CourseController {
 	@RequestMapping("/courses")
 	public String index(Model model) {
 		List<Course> courses = (List<Course>) crepository.findAll();
+		System.out.println("Count: " + courses.size());
 		model.addAttribute("courses", courses);
     	return "courses";
     }
