@@ -2,6 +2,8 @@ package fi.coursemate.domain;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class User {
 
@@ -15,6 +17,7 @@ public class User {
     private String username;
 
     @Column(name = "password", nullable = false)
+    @JsonIgnore
     private String passwordHash;
 
     @Column(name = "role", nullable = false)
@@ -23,6 +26,7 @@ public class User {
     @OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL,
             mappedBy = "user")
+    @JsonIgnore
     private Student student;    
     
     public User() {

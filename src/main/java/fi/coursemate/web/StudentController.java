@@ -85,10 +85,5 @@ public class StudentController {
 
 		model.addAttribute("developers", repository.findAll());
 		return "redirect:/students";
-	}    
-    
-    @RequestMapping(value = "getstudents", method = RequestMethod.GET)
-    public @ResponseBody List<Student> getStudents() {
-            return (List<Student>)repository.findAll();
-    }     
+	}       
 }
