@@ -4,41 +4,63 @@
 <head>
     <title>Studentlist</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
+	<link type="text/css" rel="stylesheet" th:href="@{css/datatables.min.css}" />
+	<script type="text/javascript" src="js/datatables.min.js"></script>
 </head>
 <body>
 	<div th:replace="header :: header">...</div>
     
     <div style="padding:80px 20px">
-    <table class="table table-striped">
+    <table id="studentTable" class="table table-striped">
+		<thead>
 		<tr>
+		    <th>Id</th>		
 		    <th>Student number</th>
 		    <th>Name</th>
 		    <th>Email</th>
-		    <th>Department</th>
-		    <th>Username</th>		    
-		    <th>Courses</th>
+		    <th>Department</th>	
 		    <th>Actions</th>
+		    <th></th>	    
 		</tr>  
-    	<tr th:each = "student : ${students}">
-    		<td th:text="${student.studentNumber}"></td>
-    		<td th:text="${student.firstName} + ' ' + ${student.lastName}"></td>
-    		<td th:text="${student.email}"></td>
-    		<td th:text="${student.department}"></td>
-    		<td th:text="${student.user.username}"></td>
-    		<td>
-				<span th:each="course,iterStat : ${student.courses}">
-					<span th:text="${course.name}"/><th:block th:if="${!iterStat.last}">,</th:block>
-				</span>    		
-    		</td>
-    		<td>
-    			<a th:href="@{/addStudentCourse/{id}(id=${student.id})}" class="btn btn-primary btn-xs">Add Course</a>
-    			<a th:href="@{/edit/{id}(id=${student.id})}" class="btn btn-primary btn-xs">Edit</a>
-    			<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/delete/{id}(id=${student.id})}" class="btn btn-danger btn-xs">Delete</a>
-    		</td>
-    	</tr>
+		</thead>
     </table>
-    <a href="/add" class="btn btn-primary">Add Student</a>
-	</div>    
+	</div>
+	
+	<script>
+	$(document).ready( function () {
+		 var table = $('#studentTable').DataTable({
+				"sAjaxSource": "/getstudents",
+				"sAjaxDataProp": "",
+				"order": [[ 0, "asc" ]],
+				"columns": [
+				    { "data": "id"},
+					{ "data": "studentNumber"},
+				    { "data": "firstName"},
+				    { "data": "email"},
+				    { "data": "department"},
+			        { "data": "editaction",
+						"width": "7%",
+				    	"orderable": false,
+					   	"searchable": false,
+					   	"render": function(data, type, row, meta) {
+					    	const a = '<a sec:authorize="hasAuthority('ADMIN')" href="/addStudentCourse/' + row.id + '">Add course</a>';
+					        return a;
+					   }
+					},
+				    { "data": "editaction",
+						"width": "7%",
+				       	"orderable": false,
+				       	"searchable": false,
+				        "render": function(data, type, row, meta) {
+				    		const a = '<a sec:authorize="hasAuthority('ADMIN')" href="/edit/' + row.id + '">Edit</a>';
+				        	return a;
+				        }
+				    }				    
+				]
+		 })
+	});	
+	</script>    
 </body>
 </html>

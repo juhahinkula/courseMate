@@ -12,16 +12,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import fi.coursemate.domain.Course;
+import fi.coursemate.domain.CourseRepository;
 import fi.coursemate.domain.Student;
 import fi.coursemate.domain.StudentRepository;
 
 @RestController
-public class StudentRestController {
+public class CoursemateRestController {
 	@Autowired
     private StudentRepository repository; 
+
+	@Autowired
+    private CourseRepository crepository; 
 	
     @RequestMapping(value = "getstudents", method = RequestMethod.GET)
     public @ResponseBody List<Student> getStudents() {
             return (List<Student>)repository.findAll();
+    }  
+
+    @RequestMapping(value = "getcourses", method = RequestMethod.GET)
+    public @ResponseBody List<Course> getCourses() {
+            return (List<Course>)crepository.findAll();
     }  
 }

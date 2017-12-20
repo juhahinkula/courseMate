@@ -30,7 +30,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li sec:authorize="isAuthenticated()">          
               <a href="/logout" th:href="@{#}" onclick="document.getElementById('form').submit();">
-                <span class="glyphicon glyphicon-search"></span>
+                <span class="glyphicon glyphicon-log-out"></span>
                 Logout
               </a>
              <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>

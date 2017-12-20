@@ -4,32 +4,73 @@
 <head>
     <title>Studentlist</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
+	<link type="text/css" rel="stylesheet" th:href="@{css/datatables.min.css}" />
+	<script type="text/javascript" src="js/datatables.min.js"></script>
 </head>
 <body>
 	<div th:replace="header :: header">...</div>
     
     <div style="padding:80px 20px">
-    <table class="table table-striped">
+    <table id="courseTable" class="table table-striped">
+		<thead>
 		<tr>
+		    <th>Id</th>
 		    <th>Code</th>
 		    <th>Name</th>
 		    <th>Owner</th>		    
-		    <th>Actions</th>
+		    <th>Actions</th>		    
+		    <th></th>	
+		    <th></th>
 		</tr>  
-    	<tr th:each = "course : ${courses}">
-    		<td th:text="${course.coursecode}"></td>
-    		<td th:text="${course.name}"></td>
-    		<td th:text="${course.createdBy}"></td>
-    		<td>
-    			<a th:href="@{/coursestudents/{id}(id=${course.courseid})}" class="btn btn-primary btn-xs">Review</a>
-    			<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/reviews/{id}(id=${course.courseid})}" class="btn btn-primary btn-xs">Show reviews</a>
-    			<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/editcourse/{id}(id=${course.courseid})}" class="btn btn-primary btn-xs">Edit</a>
-    			<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/deletecourse/{id}(id=${course.courseid})}" class="btn btn-danger btn-xs">Delete</a>
-    		</td>
-    	</tr>
+		</thead>
     </table>
-    <a href="/addcourse" class="btn btn-primary" sec:authorize="hasAuthority('ADMIN')">Add course</a>
-	</div>    
+    <a href="/addcourse" class="btn btn-primary" sec:authorize="hasAuthority('ADMIN')">
+      <span class="glyphicon glyphicon-plus"></span> Add course
+    </a>
+	</div>  
+	<script>
+	$(document).ready( function () {
+		 var table = $('#courseTable').DataTable({
+				"sAjaxSource": "/getcourses",
+				"sAjaxDataProp": "",
+				"order": [[ 0, "asc" ]],
+				"columns":[
+				    { "data": "courseid"},		
+				    { "data": "coursecode"},
+					{ "data": "name"},
+				    { "data": "createdBy"},
+				    { "data": "reviewaction",
+				    		"width": "7%",
+						   	"orderable": false,
+						   	"searchable": false,
+						   	"render": function(data, type, row, meta) {
+						    	const a = '<a href="/coursestudents/' + row.courseid + '">Review</a>';
+						    	return a;
+						  	}
+					},
+				    { "data": "reviews",
+						   	"orderable": false,
+							"width": "9%",
+						   	"searchable": false,
+						   	"render": function(data, type, row, meta) {
+						    	const a = '<a sec:authorize="hasAuthority('ADMIN')" href="/reviews/' + row.courseid + '">View Reviews</a>';
+						    	return a;
+						  	}
+					},					
+				    { "data": "editaction",
+					   	"orderable": false,
+					   	"searchable": false,
+				    	"width": "7%",
+					   	"render": function(data, type, row, meta) {
+					    	const a = '<a sec:authorize="hasAuthority('ADMIN')" href="/editcourse/' + row.courseid + '">Edit</a>';
+					    	return a;
+					  	}
+					}
+				]
+		 })
+	});	
+	</script>	  
 </body>
 </html>
