@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Studentlist</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
+	<link type="text/css" rel="stylesheet" th:href="@{css/datatables.min.css}" />
+	<script type="text/javascript" src="js/datatables.min.js"></script>
+</head>
+<body>
+	<div th:replace="header :: header">...</div>
+    
+    <div style="padding:80px 20px">
+    <table id="studentTable" class="table table-striped">
+		<thead>
+		<tr>
+		    <th>Id</th>		
+		    <th>Student number</th>
+		    <th>Name</th>
+		    <th>Email</th>
+		    <th>Department</th>	
+		    <th>Actions</th>
+		    <th></th>	    
+		</tr>  
+		</thead>
+    </table>
+    <a href="/add" class="btn btn-primary">Add Student</a>
+	</div>
+	
+	<script>
+	$(document).ready( function () {
+		 var table = $('#studentTable').DataTable({
+				"sAjaxSource": "/getstudents",
+				"sAjaxDataProp": "",
+				"order": [[ 0, "asc" ]],
+				"aoColumns": [
+				    { "mData": "id"},
+					{ "mData": "studentNumber"},
+				    { "mData": "firstName"},
+				    { "mData": "email"},
+				    { "mData": "department"},
+			        { "data": "editaction",
+					   "orderable": false,
+					   "searchable": false,
+					   "render": function(data, type, row, meta) {
+					    	const a = '<a href="/addStudentCourse/' + row.id + '">Add course</a>';
+					        return a;
+					   }
+					},
+				    { "data": "editaction",
+				       "orderable": false,
+				       "searchable": false,
+				        "render": function(data, type, row, meta) {
+				    		const a = '<a href="/edit/' + row.id + '">Edit</a>';
+				        	return a;
+				        }
+				    }				    
+				]
+		 })
+	});	
+	</script>    
+</body>
+</html>

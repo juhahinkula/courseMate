@@ -34,7 +34,7 @@ public class StudentController {
 	public String students(Model model) {
 		List<Student> students = (List<Student>) repository.findAll();
 		model.addAttribute("students", students);
-    	return "students";
+    	return "students2";
     }
 
 	@PreAuthorize("hasAuthority('ADMIN')")	
