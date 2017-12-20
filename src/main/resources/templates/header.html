@@ -14,25 +14,22 @@
           <a class="navbar-brand" href="#">CourseMate</a>
         </div>
         <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li th:classappend="${module == 'courses' ? 'active' : ''}">
-              <a href="#" th:href="@{/courses}">Courses</a>
-            </li>            
-            <li th:classappend="${module == 'students' ? 'active' : ''}">
-              <a href="#" th:href="@{/students}">Students</a>
-            </li>
-            <li th:classappend="${module == 'review' ? 'active' : ''}">
-              <a href="#" th:href="@{/reviews}">Reviews</a>
-            </li>
-          </ul>
+          <div sec:authorize="isAuthenticated()">
+	          <ul class="nav navbar-nav">
+	            <li th:classappend="${module == 'courses' ? 'active' : ''}">
+	              <a href="#" th:href="@{/courses}">Courses</a>
+	            </li>            
+	            <li th:classappend="${module == 'students' ? 'active' : ''}">
+	              <a href="#" th:href="@{/students}">Students</a>
+	            </li>
+		        <li th:classappend="${module == 'review' ? 'active' : ''}" sec:authorize="hasAuthority('ADMIN')">
+		        	<a href="#" th:href="@{/reviews}">Reviews</a>
+		        </li>
+	          </ul>
+          </div>
           <ul class="nav navbar-nav navbar-right">
-            <li>
-              <a href="/signin" th:href="@{/login}">
-                Sign in
-              </a>
-            </li>
-            <li>
-              <a href="/logout" th:href="@{#}" onclick="$('#form').submit();">
+            <li>          
+              <a href="/logout" th:href="@{#}" onclick="document.getElementById('form').submit();">
                 Logout
               </a>
              <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>

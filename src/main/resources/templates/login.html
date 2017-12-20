@@ -6,7 +6,8 @@
         <title>Studenlist login</title>
     </head>
     <body>
-    <div class="col-md-4 col-md-offset-4">
+    <div class="col-md-4 col-md-offset-4" style="padding:140px 20px">
+    	<div th:replace="header :: header">...</div>
         <div class="alert alert-danger" th:if="${param.error}">
             Invalid username and password.
         </div>
@@ -18,7 +19,11 @@
             <div><label> Password: <input type="password" name="password" class="form-control"/> </label></div>
             <div><input type="submit" value="Sign In" class="btn btn-primary"/></div>
         </form>
-    	<a th:href="@{/signup}">Sign-up</a>
+        <div class="alert alert-warning" style="margin: 20px">        
+    		<p>Don't have an account yet?
+    			<a th:href="@{/signup}">Sign-up here</a>
+    		</p>
+    	</div>
     </div>
     </body>
 </html>
