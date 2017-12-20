@@ -19,7 +19,7 @@
 	            <li th:classappend="${module == 'courses' ? 'active' : ''}">
 	              <a href="#" th:href="@{/courses}">Courses</a>
 	            </li>            
-	            <li th:classappend="${module == 'students' ? 'active' : ''}">
+	            <li th:classappend="${module == 'students' ? 'active' : ''}" sec:authorize="hasAuthority('ADMIN')">
 	              <a href="#" th:href="@{/students}">Students</a>
 	            </li>
 		        <li th:classappend="${module == 'review' ? 'active' : ''}" sec:authorize="hasAuthority('ADMIN')">
