@@ -29,7 +29,7 @@
     		</td>
     	</tr>
     </table>
-    <a href="/addcourse" class="btn btn-primary">Add course</a>
+    <a href="/addcourse" class="btn btn-primary" sec:authorize="hasAuthority('ADMIN')">Add course</a>
 	</div>    
 </body>
 </html>
