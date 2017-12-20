@@ -90,5 +90,5 @@ public class StudentController {
     @RequestMapping(value = "getstudents", method = RequestMethod.GET)
     public @ResponseBody List<Student> getStudents() {
             return (List<Student>)repository.findAll();
-    }      
+    }     
 }

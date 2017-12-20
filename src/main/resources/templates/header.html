@@ -29,7 +29,7 @@
           </div>
           <ul class="nav navbar-nav navbar-right">
             <li>          
-              <a href="/logout" th:href="@{#}" onclick="document.getElementById('form').submit();" sec:authorize="isAuthenticated()">
+              <a href="/logout" th:href="@{#}" onclick="document.getElementById('form').submit();">
                 Logout
               </a>
              <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
