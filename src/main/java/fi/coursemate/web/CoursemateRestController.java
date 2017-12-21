@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fi.coursemate.domain.Course;
 import fi.coursemate.domain.CourseRepository;
+import fi.coursemate.domain.PeerReview;
+import fi.coursemate.domain.PeerReviewRepository;
 import fi.coursemate.domain.Student;
 import fi.coursemate.domain.StudentRepository;
 import fi.coursemate.domain.UserRepository;
@@ -27,11 +30,20 @@ public class CoursemateRestController {
     private CourseRepository crepository; 
 
 	@Autowired
+    private PeerReviewRepository prepository; 
+
+	@Autowired
     private UserRepository urepository; 	
 	
     @RequestMapping(value = "getstudents", method = RequestMethod.GET)
     public @ResponseBody List<Student> getStudents() {
             return (List<Student>)repository.findAll();
+    }  
+    
+
+    @RequestMapping(value = "getcoursereview/{id}", method = RequestMethod.GET)
+    public @ResponseBody List<PeerReview> getCourseReviews(@PathVariable("id") long courseid) {
+        return (List<PeerReview>)prepository.findByCourseidOrderByStudentAscCourseidAsc(courseid);
     }  
 
     /**
@@ -57,6 +69,17 @@ public class CoursemateRestController {
     	return courses;
     }  
 
+    /**
+     * Get all courses
+     * 
+     * @return
+     */
+    @RequestMapping(value = "getallcourses", method = RequestMethod.GET)
+    public @ResponseBody List<Course> getAllCourses() {    	
+    	return (List<Course>)crepository.findAll();
+    }  
+    
+    
     /**
      * Check if user has role given in parameter
      * 

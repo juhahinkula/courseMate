@@ -12,7 +12,8 @@
 <body>
 	<div th:replace="header :: header">...</div>
     
-    <div style="padding:80px 20px">
+    <div style="padding:60px 20px">
+    <h3>Courses / Groups</h3>
     <table id="courseTable" class="table table-striped">
 		<thead>
 		<tr>
@@ -56,7 +57,7 @@
 							"width": "9%",
 						   	"searchable": false,
 						   	"render": function(data, type, row, meta) {
-						    	const a = '<a sec:authorize="hasAuthority('ADMIN')" href="/reviews/' + row.courseid + '">View Reviews</a>';
+						    	const a = '<a sec:authorize="hasAuthority('ADMIN')" href="reviews/' + row.courseid + '">View Reviews</a>';
 						    	return a;
 						  	}
 					},					

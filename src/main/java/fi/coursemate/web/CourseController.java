@@ -1,6 +1,5 @@
 package fi.coursemate.web;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +18,8 @@ import fi.coursemate.domain.PeerReview;
 import fi.coursemate.domain.PeerReviewRepository;
 import fi.coursemate.domain.Student;
 import fi.coursemate.domain.StudentRepository;
+import fi.coursemate.domain.User;
+import fi.coursemate.domain.UserRepository;
 
 @Controller
 public class CourseController {
@@ -29,22 +30,20 @@ public class CourseController {
     private CourseRepository crepository; 		
 
 	@Autowired
+    private UserRepository urepository; 
+	
+	@Autowired
     private PeerReviewRepository prepository; 		
 
 	@RequestMapping("/courses")
 	public String index(Model model) {
-		List<Course> courses = (List<Course>) crepository.findAll();
-		System.out.println("Count: " + courses.size());
-		model.addAttribute("courses", courses);
     	return "courses";
     }
 
 	@RequestMapping("/coursestudents/{id}")
 	public String coursestudents(@PathVariable("id") Long courseid, Model model) {
 		Course course = crepository.findOne(courseid);
-		List<Student> students = new ArrayList<Student>();
-		students.addAll(course.getStudents());
-		model.addAttribute("students", students);
+		model.addAttribute("students", course.getStudents());
 		model.addAttribute("courseid", courseid);
 		return "coursestudents";
     }	
@@ -62,6 +61,17 @@ public class CourseController {
     	model.addAttribute("course", crepository.findOne(courseId));
         return "editCourse";
     }	    
+
+    @RequestMapping(value = "/enrollcourse")
+    public String enrollCourse(Model model) {
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	String username = authentication.getName();  
+    	User user = urepository.findByUsername(username);
+    	Student student = repository.findByUser(user);
+    	model.addAttribute("student", student);
+    	model.addAttribute("courses", crepository.findAll());
+    	return "enrollCourse";
+    }	
 	
 	@PreAuthorize("hasAuthority('ADMIN')")    
     @RequestMapping(value = "savecourse", method = RequestMethod.POST)
