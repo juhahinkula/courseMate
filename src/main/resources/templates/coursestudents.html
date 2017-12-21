@@ -21,7 +21,7 @@
     		<td th:text="${student.firstName} + ' ' + ${student.lastName}"></td>
     		<td th:text="${student.email}"></td>
     		<td>
-    			<a th:href="@{/review/{id}/{courseid}/{reviewer}(id=${student.id}, courseid=${courseid}, reviewer='user1')}" class="btn btn-primary btn-xs">Review</a>
+    			<a th:href="@{/review/{id}/{courseid}(id=${student.id}, courseid=${courseid})}" class="btn btn-primary btn-xs">Review</a>
     		</td>
     	</tr>
     </table>

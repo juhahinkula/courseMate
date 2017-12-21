@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -84,14 +86,16 @@ public class CourseController {
      * @param model
      * @return review view
      */
-    @RequestMapping(value = "/review/{id}/{courseid}/{reviewer}")
-    public String review(@PathVariable("id") Long studentId, @PathVariable("courseid") Long courseId, @PathVariable("reviewer") String reviewer, Model model){
+    @RequestMapping(value = "/review/{id}/{courseid}")
+    public String review(@PathVariable("id") Long studentId, @PathVariable("courseid") Long courseId, Model model){
     	Student s = repository.findOne(studentId);
     	Course c = crepository.findOne(courseId);
-    	//TODO: query not working
-    	// Check if review already exist
+    	// Get logged in user = reviewer
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	String reviewer = authentication.getName();
     	List<PeerReview> reviews = prepository.findByStudentAndCourseidAndCreatedBy(s, courseId, reviewer);
     	PeerReview review;
+    	// Check if review already exist
     	if (!reviews.isEmpty())
     		review = reviews.get(0);
     	else

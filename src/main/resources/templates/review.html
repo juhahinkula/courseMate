@@ -15,11 +15,13 @@
 			<input type="hidden" th:field="*{student}" class="form-control"/>
 			<input type="hidden" th:field="*{courseid}" class="form-control"/>
 			<input type="hidden" th:field="*{createdBy}" class="form-control"/>
-			<input type="number" th:field="*{grade}" class="form-control"
+			<label for="grade">Grade</label>
+			<input id="grade" type="number" th:field="*{grade}" class="form-control"
 				placeholder="1-5" />
 			<div style="clear: both; display: block; height: 10px;"></div>
-			<textarea th:field="*{description}" class="form-control"
-				placeholder="Description" />
+			<label for="description">Textual assessment</label>
+			<textarea id="description" th:field="*{description}" class="form-control"
+				placeholder="assessment" />
 			<div style="clear: both; display: block; height: 10px;"></div>
 			<input type="submit" class="btn btn-primary" value="Save"></input>
 		</form>
