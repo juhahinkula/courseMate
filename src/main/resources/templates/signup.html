@@ -7,11 +7,11 @@
 </head>
 <body>
 	<div th:replace="header :: header">...</div>
-	<div class="col-md-4" style="padding:80px 20px">
+	<div class="col-md-6" style="padding:80px 140px 20px">
 		<h3>Sign-up</h3>
 		<form th:object="${signupform}" th:action="@{/saveuser}" action="#" method="post">
 			<input type="text" th:field="*{username}" class="form-control"
-				placeholder="Username" />
+				placeholder="Choose you Username" />
 			<p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</p>
 			<div style="clear: both; display: block; height: 10px;"></div>	
 			<input type="text" th:field="*{studentnumber}" class="form-control"
@@ -35,7 +35,7 @@
 			<p th:if="${#fields.hasErrors('department')}" th:errors="*{department}">Department Error</p>
 			<div style="clear: both; display: block; height: 10px;"></div>	
 			<input type="password" th:field="*{password}" class="form-control"
-				placeholder="Password" />
+				placeholder="Create Password" />
 			<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</p>
 			<div style="clear: both; display: block; height: 10px;"></div>	
 			<input type="password" th:field="*{passwordCheck}" class="form-control"
