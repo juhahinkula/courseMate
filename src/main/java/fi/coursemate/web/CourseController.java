@@ -86,7 +86,8 @@ public class CourseController {
     	crepository.delete(courseId);
         return "redirect:/courses";
     }     
-	
+
+	@PreAuthorize("hasAuthority('ADMIN')")		
 	@RequestMapping("/findreviews")
 	public String reviews(Model model) {
     	return "findreviews";
@@ -124,19 +125,6 @@ public class CourseController {
     	Long courseid = review.getCourseid();
         prepository.save(review);
     	return "redirect:/coursestudents/" + Long.toString(courseid);
-    }
-
-	/**
-	 * Show all reviews
-	 * @param model
-	 * @return
-	 */
-	@PreAuthorize("hasAuthority('ADMIN')")
-	@RequestMapping("/reviews")
-	public String reviewList(Model model) {
-		List<PeerReview> reviews = (List<PeerReview>) prepository.findAllByOrderByStudentAsc();
-		model.addAttribute("reviews", reviews);
-    	return "reviews";
     }
     
 	/**
