@@ -35,7 +35,7 @@ public class UserController {
         return "signup";
     }	
 
-	@PreAuthorize("hasAuthority('ADMIN')")    
+	@PreAuthorize("hasAuthority('SUPERUSER')")    
     @RequestMapping(value = "signupteacher")
     public String addTeacher(Model model){
     	model.addAttribute("signupform", new SignupForm());

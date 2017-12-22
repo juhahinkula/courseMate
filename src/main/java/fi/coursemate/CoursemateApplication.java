@@ -42,12 +42,14 @@ public class CoursemateApplication {
 			User user3 = new User("user3", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER");
 			User user4 = new User("user4", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER");
 			User user5 = new User("admin", "$2a$08$bCCcGjB03eulCWt3CY0AZew2rVzXFyouUolL5dkL/pBgFkUH9O4J2", "ADMIN");
+			User user6 = new User("super", "$2a$08$bCCcGjB03eulCWt3CY0AZew2rVzXFyouUolL5dkL/pBgFkUH9O4J2", "SUPERUSER");
 			urepository.save(user1);
 			urepository.save(user2); 
 			urepository.save(user3); 
 			urepository.save(user4); 
 			urepository.save(user5); 
-			
+			urepository.save(user6); 
+						
 			// save students
 			repository.save(new Student("A2323", "John", "Johnson", "IT", "john@john.com")); 
 			repository.save(new Student("A1123", "Mary", "Robinson", "IT", "mary@robinson.com"));

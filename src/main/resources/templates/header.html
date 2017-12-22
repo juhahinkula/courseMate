@@ -28,6 +28,9 @@
 		        <li th:classappend="${module == 'review' ? 'active' : ''}" sec:authorize="hasAuthority('ADMIN')">
 		        	<a href="#" th:href="@{/findreviews}">Reviews</a>
 		        </li>
+		        <li th:classappend="${module == 'addteacher' ? 'active' : ''}" sec:authorize="hasAuthority('SUPERUSER')">
+		        	<a href="#" th:href="@{/signupteacher}">Add teacher</a>
+		        </li>
 	          </ul>
           </div>
           <ul class="nav navbar-nav navbar-right">

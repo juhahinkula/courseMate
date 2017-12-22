@@ -28,7 +28,7 @@
 		</tr>  
 		</thead>
     </table>
-    <a href="/addcourse" class="btn btn-primary" sec:authorize="hasAuthority('ADMIN')">
+    <a href="/addcourse" class="btn btn-primary" sec:authorize="hasAnyAuthority('ADMIN', 'SUPERUSER')">
       <span class="glyphicon glyphicon-plus"></span> Add course
     </a>
 	</div>  
