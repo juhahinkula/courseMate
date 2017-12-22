@@ -15,6 +15,9 @@
         <div class="alert alert-warning" th:if="${param.logout}">
             You have been logged out.
         </div>
+        <div class="alert alert-success" th:if="${param.signup}">
+            Your account has been created.
+        </div>
         <form th:action="@{/login}" method="post">
             <div><label> User Name : <input type="text" name="username" class="form-control"/> </label></div>
             <div><label> Password: <input type="password" name="password" class="form-control"/> </label></div>
