@@ -15,7 +15,7 @@
 				placeholder="Choose you Username" />
 			<p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</p>
 			<div style="clear: both; display: block; height: 10px;"></div>	
-			<input type="text" th:field="*{password}" class="form-control"
+			<input type="password" th:field="*{password}" class="form-control"
 				placeholder="Password" />
 			<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</p>
 			<div style="clear: both; display: block; height: 10px;"></div>	

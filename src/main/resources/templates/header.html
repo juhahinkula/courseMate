@@ -17,19 +17,19 @@
           <div sec:authorize="isAuthenticated()">
 	          <ul class="nav navbar-nav">
 	            <li th:classappend="${module == 'courses' ? 'active' : ''}">
-	              <a href="#" th:href="@{/courses}">Courses</a>
+	              <a href="#" th:href="@{/courses}"><span class="glyphicon glyphicon-list"></span> Courses</a>
 	            </li>            
 	            <li th:classappend="${module == 'enroll' ? 'active' : ''}" sec:authorize="hasAuthority('USER')">
-	              <a href="#" th:href="@{/enrollCourse}">Join course</a>
+	              <a href="#" th:href="@{/enrollCourse}"><span class="glyphicon glyphicon-plus"></span> Join course</a>
 	            </li>
 	            <li th:classappend="${module == 'students' ? 'active' : ''}" sec:authorize="hasAuthority('ADMIN')">
-	              <a href="#" th:href="@{/students}">Students</a>
+	              <a href="#" th:href="@{/students}"><span class="glyphicon glyphicon-list"></span> Students</a>
 	            </li>
 		        <li th:classappend="${module == 'review' ? 'active' : ''}" sec:authorize="hasAuthority('ADMIN')">
-		        	<a href="#" th:href="@{/findreviews}">Reviews</a>
+		        	<a href="#" th:href="@{/findreviews}"><span class="glyphicon glyphicon-list"></span> Reviews</a>
 		        </li>
 		        <li th:classappend="${module == 'addteacher' ? 'active' : ''}" sec:authorize="hasAuthority('SUPERUSER')">
-		        	<a href="#" th:href="@{/signupteacher}">Add teacher</a>
+		        	<a href="#" th:href="@{/signupteacher}"><span class="glyphicon glyphicon-plus"></span> Add teacher</a>
 		        </li>
 	          </ul>
           </div>
