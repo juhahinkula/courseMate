@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Reviews</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
+	<link type="text/css" rel="stylesheet" th:href="@{css/datatables.min.css}" />
+	<script type="text/javascript" src="js/datatables.min.js"></script>
+
+	<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
+
+</head>
+<body>
+	<div th:replace="header :: header">...</div>
+    
+    <div style="padding:80px 20px">
+    <h3>Reviews</h3>
+    <div id="buttons"></div>
+    <table id="reviewTable" class="table table-striped dt-responsive nowrap">
+		<thead>
+		<tr>
+		    <th>Course</th>
+		    <th>Student</th>
+		    <th></th>		    
+		    <th>Grade</th>
+		    <th>Description</th>
+		    <th>Reviewed by</th>
+		</tr> 
+		</thead> 
+    </table>
+	</div>    
+	<script>
+	$(document).ready( function () {
+		 var table = $('#reviewTable').DataTable({
+				"sAjaxSource": "/getreviews",
+				"sAjaxDataProp": "",
+				"order": [[ 0, "asc" ]],
+		        "dom": 'Bfrtip',
+				"buttons": [
+			        'copyHtml5',
+			        'csvHtml5',
+			        'excelHtml5'
+			    ],
+				"columns":[
+				    { "data": "courseid"},		
+				    { "data": "student.firstName",
+				    	width: "5%"},
+				    { "data": "student.lastName"},				    
+					{ "data": "grade"},
+					{ "data": "description"},
+					{ "data": "createdBy"},
+				]
+		 }); 
+	});	
+	</script>	
+</body>
+</html>

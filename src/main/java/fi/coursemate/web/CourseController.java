@@ -85,7 +85,12 @@ public class CourseController {
     public String deleteCourse(@PathVariable("id") Long courseId, Model model) {
     	crepository.delete(courseId);
         return "redirect:/courses";
-    }       
+    }     
+	
+	@RequestMapping("/findreviews")
+	public String reviews(Model model) {
+    	return "findreviews";
+    }	
 
     /**
      * Create peer review

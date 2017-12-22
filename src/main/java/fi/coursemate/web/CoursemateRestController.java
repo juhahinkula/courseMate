@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -40,7 +41,13 @@ public class CoursemateRestController {
             return (List<Student>)repository.findAll();
     }  
     
-
+	@PreAuthorize("hasAuthority('ADMIN')")	
+    @RequestMapping(value = "getreviews", method = RequestMethod.GET)
+    public @ResponseBody List<PeerReview> getReviews() {
+        return (List<PeerReview>)prepository.findAll();
+    }  
+    
+	@PreAuthorize("hasAuthority('ADMIN')")	
     @RequestMapping(value = "getcoursereview/{id}", method = RequestMethod.GET)
     public @ResponseBody List<PeerReview> getCourseReviews(@PathVariable("id") long courseid) {
         return (List<PeerReview>)prepository.findByCourseidOrderByStudentAscCourseidAsc(courseid);
