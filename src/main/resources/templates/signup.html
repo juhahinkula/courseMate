@@ -12,7 +12,7 @@
 		<h3>Sign-up</h3>
 		<form th:object="${signupform}" th:action="@{/saveuser}" action="#" method="post">
 			<input type="text" th:field="*{username}" class="form-control"
-				placeholder="Choose you Username" />
+				placeholder="Choose your Username" />
 			<p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</p>
 			<div style="clear: both; display: block; height: 10px;"></div>	
 			<input type="text" th:field="*{studentnumber}" class="form-control"

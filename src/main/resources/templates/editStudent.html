@@ -12,19 +12,24 @@
 		<h3>Edit Student</h3>
 		<form th:object="${student}" th:action="@{../save}" action="#" method="post">
 			<input type="hidden" th:field="*{id}" class="form-control"/>
-			<input type="text" th:field="*{studentNumber}" class="form-control"
+			<label for="number">Student Number</label>
+			<input type="text" id="number" th:field="*{studentNumber}" class="form-control"
 				placeholder="Student number" />
 			<div style="clear: both; display: block; height: 10px;"></div>
-			<input type="text" th:field="*{firstName}" class="form-control"
-				placeholder="Firstname" />
+			<label for="fname">First name</label>
+			<input type="text" id="fname" th:field="*{firstName}" class="form-control"
+				placeholder="First name" />
 			<div style="clear: both; display: block; height: 10px;"></div>
-			<input type="text" th:field="*{lastName}" class="form-control"
-				placeholder="Lastname" />
+			<label for="lname">Last name</label>
+			<input type="text" id="lname" th:field="*{lastName}" class="form-control"
+				placeholder="Last name" />
 			<div style="clear: both; display: block; height: 10px;"></div>
-			<input type="text" th:field="*{department}" class="form-control"
+			<label for="dep">Department</label>
+			<input type="text" id="dep" th:field="*{department}" class="form-control"
 				placeholder="Department" />
 			<div style="clear: both; display: block; height: 10px;"></div>	
-			<input type="text" th:field="*{email}" class="form-control"
+			<label for="email">Email</label>
+			<input type="text" id="email" th:field="*{email}" class="form-control"
 				placeholder="Email" />
 			<div style="clear: both; display: block; height: 10px;"></div>
 			<input type="hidden" th:field="*{user.id}" class="form-control"/>

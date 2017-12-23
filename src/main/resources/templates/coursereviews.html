@@ -13,14 +13,14 @@
     <div style="padding:80px 20px">
     <table class="table table-striped">
 		<tr>
-		    <th>Course</th>
+		    <th>Group</th>
 		    <th>Student</th>
 		    <th>Grade</th>
 		    <th>Description</th>
 		    <th>Reviewed by</th>
 		</tr>  
     	<tr th:each = "review : ${reviews}">
-    		<td th:text="${review.courseid}"></td>
+    		<td th:text="${review.course.name}"></td>
     		<td th:text="${review.student.firstName} + ' ' + ${review.student.lastName}"></td>
     		<td th:text="${review.grade}"></td>
     		<td th:text="${review.description}"></td>

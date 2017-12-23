@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Edit course</title>
+    <title>Edit group</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
@@ -9,14 +9,16 @@
 <body>
 	<div th:replace="header :: header">...</div>
 	<div class="col-md-4" style="padding:80px 20px">
-		<h3>Edit Course</h3>
+		<h3>Edit group</h3>
 		<form th:object="${course}" th:action="@{../savecourse}" action="#" method="post">
 			<input type="hidden" th:field="*{courseid}" class="form-control"/>
 			<input type="hidden" th:field="*{createdBy}" class="form-control"/>
-			<input type="text" th:field="*{coursecode}" class="form-control"
+			<label for="code">Code</label>
+			<input type="text" id="code" th:field="*{coursecode}" class="form-control"
 				placeholder="Code" />
 			<div style="clear: both; display: block; height: 10px;"></div>		
-			<input type="text" th:field="*{name}" class="form-control"
+			<label for="name">Name</label>
+			<input type="text" id="name" th:field="*{name}" class="form-control"
 				placeholder="Name" />
 			<div style="clear: both; display: block; height: 10px;"></div>
 			<input type="submit" class="btn btn-primary" value="Save"></input>

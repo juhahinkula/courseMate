@@ -20,7 +20,7 @@
 			Name: <b th:text="${student.firstName}" /> <b th:text="${student.lastName}" />
 			Email: <span th:text="${student.email}" /><br/>
 			Department: <span th:text="${student.department}" />
-			<br/>Courses:
+			<br/>Groups:
 				<span th:each="course : ${student.courses}">
 					&nbsp;&nbsp;<span th:text="${course.name}" />
 				</span>
@@ -64,7 +64,7 @@
 						   	"orderable": false,
 						   	"searchable": false,
 						   	"render": function(data, type, row, meta) {
-						    	const a = '<a href="/student/' + studentid + '/' + row.courseid + '">Enroll</a>';
+						    	const a = '<a href="/student/' + studentid + '/' + row.courseid + '">Join</a>';
 						    	return a;
 						  	}
 					},				
