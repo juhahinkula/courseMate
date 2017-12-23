@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Edit student</title>
+    <title>Review</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link type="text/css" rel="stylesheet" th:href="@{/../css/bootstrap.min.css}" />
@@ -11,10 +11,11 @@
 	<div class="col-md-4" style="padding:80px 20px">
 		<h3>Review</h3>
 		<p th:text="${review.student.firstName} + ' ' + ${review.student.lastName}" class="form-control"/>
+		<p th:text="${review.course.name}" class="form-control"/>
 		<form th:object="${review}" th:action="@{/../savereview}" action="#" method="post">
 			<input type="hidden" th:field="*{reviewid}" class="form-control"/>
 			<input type="hidden" th:field="*{student}" class="form-control"/>
-			<input type="hidden" th:field="*{courseid}" class="form-control"/>
+			<input type="hidden" th:field="*{course.courseid}" class="form-control"/>
 			<input type="hidden" th:field="*{createdBy}" class="form-control"/>
 			<label for="grade">Grade</label>
 			<input id="grade" type="number" th:field="*{grade}" class="form-control"

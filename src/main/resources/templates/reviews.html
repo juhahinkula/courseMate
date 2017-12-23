@@ -20,7 +20,7 @@
 		    <th>Reviewed by</th>
 		</tr>  
     	<tr th:each = "review : ${reviews}">
-    		<td th:text="${review.courseid}"></td>
+    		<td th:text="${review.course.courseid}"></td>
     		<td th:text="${review.student.firstName} + ' ' + ${review.student.lastName}"></td>
     		<td th:text="${review.grade}"></td>
     		<td th:text="${review.description}"></td>

@@ -1,6 +1,7 @@
 package fi.coursemate.domain;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -8,6 +9,8 @@ import javax.persistence.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -30,6 +33,10 @@ public class Course {
     @ManyToMany(mappedBy = "courses")    
     private Set<Student> students;  
 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="course")
+    @JsonIgnore
+	private List<PeerReview> reviews;
+	
     public Course() {
 	}
 
@@ -83,5 +90,13 @@ public class Course {
 
     public void setStudents(Set<Student> students) {
         this.students = students;
-    }	
+    }
+
+	public List<PeerReview> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<PeerReview> reviews) {
+		this.reviews = reviews;
+	}	
 }

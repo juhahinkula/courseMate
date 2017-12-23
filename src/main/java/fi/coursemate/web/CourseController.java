@@ -106,23 +106,24 @@ public class CourseController {
     public String review(@PathVariable("id") Long studentId, @PathVariable("courseid") Long courseId, Model model){
     	Student s = repository.findOne(studentId);
     	Course c = crepository.findOne(courseId);
+    	System.out.println("Courseid: " + c.getCourseid());
     	// Get logged in user = reviewer
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     	String reviewer = authentication.getName();
-    	List<PeerReview> reviews = prepository.findByStudentAndCourseidAndCreatedBy(s, courseId, reviewer);
+    	List<PeerReview> reviews = prepository.findByStudentAndCourseAndCreatedBy(s, c, reviewer);
     	PeerReview review;
     	// Check if review already exist
     	if (!reviews.isEmpty())
     		review = reviews.get(0);
     	else
-    		review = new PeerReview(s, courseId);
+    		review = new PeerReview(s, c);
     	model.addAttribute("review", review);
         return "review";
     }	
 
     @RequestMapping(value = "savereview", method = RequestMethod.POST)
     public String save(PeerReview review) {
-    	Long courseid = review.getCourseid();
+    	Long courseid = review.getCourse().getCourseid();
         prepository.save(review);
     	return "redirect:/coursestudents/" + Long.toString(courseid);
     }
@@ -135,7 +136,8 @@ public class CourseController {
 	 */
 	@RequestMapping("/reviews/{courseid}")
 	public String courseReviews(@PathVariable("courseid") Long courseId, Model model) {
-		List<PeerReview> reviews = (List<PeerReview>) prepository.findByCourseidOrderByStudentAscCourseidAsc(courseId);
+		Course course = crepository.findOne(courseId);
+		List<PeerReview> reviews = (List<PeerReview>) prepository.findByCourseOrderByStudentAscCourseAsc(course);
 		model.addAttribute("reviews", reviews);
     	return "coursereviews";
     }

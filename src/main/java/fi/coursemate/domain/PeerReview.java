@@ -24,8 +24,11 @@ public class PeerReview {
     @ManyToOne
 	@JoinColumn(name = "id")
 	private Student student;
+
+    @ManyToOne
+	@JoinColumn(name = "courseid")
+    private Course course;    
     
-    private long courseid;
     private int grade;
     private String description;
 	
@@ -37,10 +40,10 @@ public class PeerReview {
 	
     public PeerReview() {}
     
-    public PeerReview(Student student, long courseid) {
+    public PeerReview(Student student, Course course) {
 		super();
 		this.student = student;
-		this.courseid = courseid;
+		this.course = course;
 	}
 	
 	public long getReviewid() {
@@ -58,15 +61,15 @@ public class PeerReview {
 	public void setStudent(Student student) {
 		this.student = student;
 	}
-	
-	public long getCourseid() {
-		return courseid;
+		
+	public Course getCourse() {
+		return course;
 	}
-	
-	public void setCourseid(long courseid) {
-		this.courseid = courseid;
+
+	public void setCourse(Course course) {
+		this.course = course;
 	}
-	
+
 	public int getGrade() {
 		return grade;
 	}

@@ -50,7 +50,8 @@ public class CoursemateRestController {
 	@PreAuthorize("hasAuthority('ADMIN')")	
     @RequestMapping(value = "getcoursereview/{id}", method = RequestMethod.GET)
     public @ResponseBody List<PeerReview> getCourseReviews(@PathVariable("id") long courseid) {
-        return (List<PeerReview>)prepository.findByCourseidOrderByStudentAscCourseidAsc(courseid);
+		Course course = crepository.findOne(courseid);
+        return (List<PeerReview>)prepository.findByCourseOrderByStudentAscCourseAsc(course);
     }  
 
     /**
