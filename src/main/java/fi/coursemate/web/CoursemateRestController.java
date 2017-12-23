@@ -22,6 +22,11 @@ import fi.coursemate.domain.Student;
 import fi.coursemate.domain.StudentRepository;
 import fi.coursemate.domain.UserRepository;
 
+/**
+ * Rest controller for DataTables
+ * 
+ * @author Juha Hinkula
+ */
 @RestController
 public class CoursemateRestController {
 	@Autowired

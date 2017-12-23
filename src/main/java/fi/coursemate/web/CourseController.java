@@ -62,6 +62,12 @@ public class CourseController {
         return "editCourse";
     }	    
 
+	/**
+	 * Enroll (or join) to group/course
+	 * 
+	 * @param model
+	 * @return
+	 */
     @RequestMapping(value = "/enrollcourse")
     public String enrollCourse(Model model) {
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -121,6 +127,12 @@ public class CourseController {
         return "review";
     }	
 
+    /**
+     * Save Peer-review
+     * 
+     * @param review
+     * @return
+     */
     @RequestMapping(value = "savereview", method = RequestMethod.POST)
     public String save(PeerReview review) {
     	Long courseid = review.getCourse().getCourseid();

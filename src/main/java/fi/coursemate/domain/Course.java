@@ -12,6 +12,12 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * Course / Group entity 
+ * Collect students to groups
+ * @author Juha Hinkula
+ *
+ */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class Course {

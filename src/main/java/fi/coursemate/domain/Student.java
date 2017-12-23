@@ -8,6 +8,10 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * Student entity
+ * @author Juha Hinkula
+ */
 @Entity
 public class Student {
     @Id
