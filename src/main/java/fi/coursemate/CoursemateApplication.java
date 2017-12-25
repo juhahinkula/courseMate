@@ -51,11 +51,11 @@ public class CoursemateApplication {
 			urepository.save(user6); 
 						
 			// save students
-			repository.save(new Student("A2323", "John", "Johnson", "IT", "john@john.com")); 
-			repository.save(new Student("A1123", "Mary", "Robinson", "IT", "mary@robinson.com"));
-			repository.save(new Student("A3323", "Steve", "Stevens", "IT", "steve.stevent@st.com"));
-			repository.save(new Student("C4402", "Kate", "Keystone", "Nursery","kate@kate.com"));
-			repository.save(new Student("B0701", "Diana", "Doll", "Business","diana@doll.com"));
+			repository.save(new Student("A2323", "John", "Johnson", "IT", "john@john.com", user1)); 
+			repository.save(new Student("A1123", "Mary", "Robinson", "IT", "mary@robinson.com", user2));
+			repository.save(new Student("A3323", "Steve", "Stevens", "IT", "steve.stevent@st.com", user3));
+			repository.save(new Student("C4402", "Kate", "Keystone", "Nursery","kate@kate.com", user4));
+			repository.save(new Student("B0701", "Diana", "Doll", "Business","diana@doll.com", user5));
 		};	
 	}
 }

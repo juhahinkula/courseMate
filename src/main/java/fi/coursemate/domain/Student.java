@@ -29,7 +29,7 @@ public class Student {
     private String email;    
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", nullable = false)
+    @JoinColumn(name = "userid", nullable = false)
     @JsonIgnore
     private User user;
     
@@ -55,6 +55,16 @@ public class Student {
 		this.email = email;
 	}
 
+	public Student(String studentNumber, String firstName, String lastName, String department, String email, User user) {
+		super();
+		this.studentNumber = studentNumber;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.department = department;
+		this.email = email;
+		this.user = user;
+	}
+	
 	public long getId() {
 		return id;
 	}

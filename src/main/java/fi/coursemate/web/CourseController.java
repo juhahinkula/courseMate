@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import fi.coursemate.domain.Course;
 import fi.coursemate.domain.CourseRepository;
@@ -134,9 +135,11 @@ public class CourseController {
      * @return
      */
     @RequestMapping(value = "savereview", method = RequestMethod.POST)
-    public String save(PeerReview review) {
-    	Long courseid = review.getCourse().getCourseid();
-        prepository.save(review);
+    public String save(@RequestParam(value="action", required=true) String action, PeerReview review) {
+		Long courseid = review.getCourse().getCourseid();
+    	if (action.equals("Save")) {
+        	prepository.save(review);
+    	}
     	return "redirect:/coursestudents/" + Long.toString(courseid);
     }
     

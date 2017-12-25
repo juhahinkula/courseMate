@@ -34,6 +34,9 @@
 	          </ul>
           </div>
           <ul class="nav navbar-nav navbar-right">
+		    <li sec:authorize="isAuthenticated()">
+		    	<a href="#" th:href="@{/editprofile}"><span class="glyphicon glyphicon-user"></span> Profile</a>
+		    </li>
             <li sec:authorize="isAuthenticated()">          
               <a href="/logout" th:href="@{#}" onclick="document.getElementById('form').submit();">
                 <span class="glyphicon glyphicon-log-out"></span>

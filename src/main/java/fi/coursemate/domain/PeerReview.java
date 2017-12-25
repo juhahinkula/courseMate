@@ -2,6 +2,7 @@ package fi.coursemate.domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
@@ -35,6 +36,8 @@ public class PeerReview {
     private Course course;    
     
     private int grade;
+    
+    @Column(length = 1000)
     private String description;
 	
 	@CreatedDate

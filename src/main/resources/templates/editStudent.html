@@ -33,7 +33,8 @@
 				placeholder="Email" />
 			<div style="clear: both; display: block; height: 10px;"></div>
 			<input type="hidden" th:field="*{user.id}" class="form-control"/>
-			<input type="submit" class="btn btn-primary" value="Save"></input>
+			<input type="submit" name="action" class="btn btn-primary" value="Save"></input>
+			<input type="submit" name="action" class="btn btn-default" value="Cancel"></input>			
 		</form>
 	</div>
 </body>
