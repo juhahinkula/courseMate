@@ -21,7 +21,7 @@
             Password length is too short.
         </div>
 		<h3>Edit your profile</h3>
-		<form th:object="${student}" th:action="@{../save}" action="#" method="post">
+		<form th:object="${student}" th:action="@{../saveprofile}" action="#" method="post">
 			<input type="hidden" th:field="*{id}" class="form-control"/>
 			<label for="number">Student Number</label>
 			<input type="text" id="number" th:field="*{studentNumber}" class="form-control"

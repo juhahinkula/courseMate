@@ -22,7 +22,7 @@
 	            <li th:classappend="${module == 'enroll' ? 'active' : ''}" sec:authorize="hasAuthority('USER')">
 	              <a href="#" th:href="@{/enrollCourse}"><span class="glyphicon glyphicon-plus"></span> Join group</a>
 	            </li>
-	            <li th:classappend="${module == 'students' ? 'active' : ''}" sec:authorize="hasAuthority('ADMIN')">
+	            <li th:classappend="${module == 'students' ? 'active' : ''}" sec:authorize="hasAnyAuthority('ADMIN','SUPERUSER')">
 	              <a href="#" th:href="@{/students}"><span class="glyphicon glyphicon-list"></span> Students</a>
 	            </li>
 		        <li th:classappend="${module == 'review' ? 'active' : ''}" sec:authorize="hasAuthority('ADMIN')">

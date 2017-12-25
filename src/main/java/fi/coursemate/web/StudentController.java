@@ -38,7 +38,7 @@ public class StudentController {
     	return "login";
     }	
 	
-	@PreAuthorize("hasAuthority('ADMIN')")
+	@PreAuthorize("hasAnyAuthority('ADMIN' ,'SUPERUSER')")
 	@RequestMapping("/students")
 	public String students(Model model) {
     	return "students";
@@ -65,6 +65,15 @@ public class StudentController {
     	return "redirect:/students";
     	
     }
+
+    @RequestMapping(value = "saveprofile", method = RequestMethod.POST)
+    public String saveProfile(@RequestParam(value="action", required=true) String action, Student student) {
+        if (action.equals("Save")) {
+        	repository.save(student);
+        }
+    	return "redirect:/courses";
+    	
+    }    
     
 	@PreAuthorize("hasAuthority('ADMIN')")    
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
