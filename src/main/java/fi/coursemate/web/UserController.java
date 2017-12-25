@@ -140,9 +140,12 @@ public class UserController {
 		    	newUser.setPasswordHash(hashPwd);
 		    	newUser.setUsername(signupForm.getUsername());
 		    	newUser.setRole("ADMIN");
+		    	Student newStudent = new Student();
+		    	newStudent.setUser(newUser);
 		    			    	
 		    	if (repository.findByUsername(signupForm.getUsername()) == null) {
 		    		repository.save(newUser);
+		    		srepository.save(newStudent);
 		    	}
 		    	else {
 	    			bindingResult.rejectValue("username", "error.userexists", "Username already exists");    	

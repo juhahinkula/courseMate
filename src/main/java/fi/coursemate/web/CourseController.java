@@ -82,8 +82,10 @@ public class CourseController {
 	
 	@PreAuthorize("hasAuthority('ADMIN')")    
     @RequestMapping(value = "savecourse", method = RequestMethod.POST)
-    public String save(Course course){
-        crepository.save(course);
+    public String save(@RequestParam(value="action", required=true) String action, Course course){
+        if (action.equals("Save")) {
+		crepository.save(course);
+		}
     	return "redirect:/courses";
     }
     
