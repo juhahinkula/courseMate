@@ -19,7 +19,7 @@ Superuser: super/super
 
 Create MariaDB database called 'coursemate'
 
-clone repository and run the application
+Clone repository and run the application.
 
     mvnw spring-boot:run
 
