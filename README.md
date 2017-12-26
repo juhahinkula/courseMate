@@ -1,6 +1,6 @@
 # CourseMate
 
-CourseMate is a software for collectiong peer reviews from the groups of students. Students can be grouped and each student in the group can review other students that belongs to the same group.
+CourseMate is a software for collecting peer reviews from the groups of students. Students can be grouped and each student in the group can review other students that belongs to the same group.
 
 Students can see only the reviews they have given. The teacher that owns the group can see all reviews from the group. Superuser can add new teachers.
 
@@ -15,7 +15,7 @@ Technologies
 - Thymeleaf
 - Jquery Datatables
 
-###Screenshots
+### Screenshots
 
 ![Screenshot](http://juhahinkula.github.com/img/coursemate_groups.png)
 
