@@ -21,7 +21,7 @@ Create MariaDB database called 'coursemate'
 
 clone repository and run the application
 
-mv
+    mvnw spring-boot:run
 
 ### Screenshots
 
