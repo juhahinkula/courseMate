@@ -9,11 +9,19 @@ Students: user1-5/user
 Teacher: admin/admin
 Superuser: super/super
 
-Technologies
+### Technologies
 - Spring Boot
 - MariaDB
 - Thymeleaf
 - Jquery Datatables
+
+### Installation
+
+Create MariaDB database called 'coursemate'
+
+clone repository and run the application
+
+mv
 
 ### Screenshots
 
