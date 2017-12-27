@@ -42,7 +42,7 @@ public class Course {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="course")
     @JsonIgnore
 	private List<PeerReview> reviews;
-	
+
     public Course() {
 	}
 

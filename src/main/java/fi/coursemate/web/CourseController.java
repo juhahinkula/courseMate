@@ -17,6 +17,8 @@ import fi.coursemate.domain.Course;
 import fi.coursemate.domain.CourseRepository;
 import fi.coursemate.domain.PeerReview;
 import fi.coursemate.domain.PeerReviewRepository;
+import fi.coursemate.domain.Question;
+import fi.coursemate.domain.QuestionRepository;
 import fi.coursemate.domain.Student;
 import fi.coursemate.domain.StudentRepository;
 import fi.coursemate.domain.User;
@@ -36,11 +38,21 @@ public class CourseController {
 	@Autowired
     private PeerReviewRepository prepository; 		
 
+	@Autowired
+    private QuestionRepository qrepository;	
+	
 	@RequestMapping("/courses")
 	public String index(Model model) {
     	return "courses";
     }
 
+	/**
+	 * Get students by Course/Group
+	 * 
+	 * @param courseid
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/coursestudents/{id}")
 	public String coursestudents(@PathVariable("id") Long courseid, Model model) {
 		Course course = crepository.findOne(courseid);
@@ -121,13 +133,25 @@ public class CourseController {
     	String reviewer = authentication.getName();
     	List<PeerReview> reviews = prepository.findByStudentAndCourseAndCreatedBy(s, c, reviewer);
     	PeerReview review;
+    	Question question = null;
     	// Check if review already exist
-    	if (!reviews.isEmpty())
+    	if (!reviews.isEmpty()) {
     		review = reviews.get(0);
-    	else
+    		// find questions
+    		question = qrepository.findByReview(review).get(0);
+    	}
+    	else {
     		review = new PeerReview(s, c);
+    		prepository.save(review);
+    		// TODO
+    		// Add questions according to course rules
+    		question = new Question("NUMERICAL", "How did your mate participated?", review);
+    		qrepository.save(question);
+    	}
     	model.addAttribute("review", review);
-        return "review";
+    	model.addAttribute("question", question);
+    	System.out.println("QUESTION: " + question.getTitle());
+    	return "review";
     }	
 
     /**
@@ -139,11 +163,27 @@ public class CourseController {
     @RequestMapping(value = "savereview", method = RequestMethod.POST)
     public String save(@RequestParam(value="action", required=true) String action, PeerReview review) {
 		Long courseid = review.getCourse().getCourseid();
+		System.out.println("Course: " + courseid.toString());
     	if (action.equals("Save")) {
         	prepository.save(review);
     	}
     	return "redirect:/coursestudents/" + Long.toString(courseid);
     }
+
+    /**
+     * Save Peer-review result
+     * 
+     * @param review
+     * @return
+     */
+    @RequestMapping(value = "savequestion", method = RequestMethod.POST)
+    public String saveResult(@RequestParam(value="action", required=true) String action, Question question) {
+		Long courseid = question.getReview().getCourse().getCourseid(); 
+		if (action.equals("Save")) {
+        	qrepository.save(question);
+    	}
+    	return "redirect:/coursestudents/" + Long.toString(courseid);
+    }    
     
 	/**
 	 * Show reviews by course

@@ -1,7 +1,9 @@
 package fi.coursemate.domain;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -10,10 +12,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Peer-review entity
@@ -35,6 +40,10 @@ public class PeerReview {
 	@JoinColumn(name = "courseid")
     private Course course;    
     
+	@OneToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
+	private List<Question> questions;	
+	    
     private int grade;
     
     @Column(length = 1000)

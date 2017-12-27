@@ -12,12 +12,12 @@
 		<h3>Review</h3>
 		<p th:text="${review.student.firstName} + ' ' + ${review.student.lastName}" class="form-control"/>
 		<p th:text="${review.course.name}" class="form-control"/>
-		<form th:object="${review}" th:action="@{/../savereview}" action="#" method="post">
-			<input type="hidden" th:field="*{reviewid}" class="form-control"/>
-			<input type="hidden" th:field="*{student}" class="form-control"/>
-			<input type="hidden" th:field="*{course.courseid}" class="form-control"/>
-			<input type="hidden" th:field="*{createdBy}" class="form-control"/>
-			<label for="grade">Grade</label>
+		<form th:object="${question}" th:action="@{/../savequestion}" action="#" method="post">
+			<input type="hidden" th:field="*{id}" class="form-control"/>
+			<input type="hidden" th:field="*{review}" class="form-control"/>
+			<input type="hidden" th:field="*{title}" class="form-control"/>
+			<input type="hidden" th:field="*{type}" class="form-control"/>
+			<label for="grade"><span th:text="*{title}">...</span></label>
 			<input id="grade" type="number" th:field="*{grade}" class="form-control"
 				placeholder="1-5" />
 			<div style="clear: both; display: block; height: 10px;"></div>
