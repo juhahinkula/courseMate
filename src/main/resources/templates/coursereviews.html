@@ -14,17 +14,19 @@
     <table class="table table-striped">
 		<tr>
 		    <th>Group</th>
-		    <th>Student</th>
+		    <th>Student</th>	
+		    <th>Question</th>
 		    <th>Grade</th>
 		    <th>Description</th>
-		    <th>Reviewed by</th>
+		    <th>Reviewed By</th>		    
 		</tr>  
-    	<tr th:each = "review : ${reviews}">
-    		<td th:text="${review.course.name}"></td>
-    		<td th:text="${review.student.firstName} + ' ' + ${review.student.lastName}"></td>
-    		<td th:text="${review.grade}"></td>
-    		<td th:text="${review.description}"></td>
-    		<td th:text="${review.createdBy}"></td>    		
+    	<tr th:each = "question : ${questions}">
+    		<td th:text="${question.review.course.name}"></td>
+    		<td th:text="${question.review.student.firstName} + ' ' + ${question.review.student.lastName}"></td>
+    		<td th:text="${question.title}"></td>
+    		<td th:text="${question.grade}"></td>
+    		<td th:text="${question.description}"></td>
+    		<td th:text="${question.review.createdBy}"></td>    		
     	</tr>
     </table>
 	</div>    

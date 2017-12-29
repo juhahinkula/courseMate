@@ -59,7 +59,13 @@ public class CoursemateRestController {
     public @ResponseBody List<PeerReview> getReviews() {
         return (List<PeerReview>)prepository.findAll();
     }  
-    
+
+	@PreAuthorize("hasAuthority('ADMIN')")	
+    @RequestMapping(value = "getquestions", method = RequestMethod.GET)
+    public @ResponseBody List<Question> getQuestions() {
+        return (List<Question>)qrepository.findAll();
+    } 	
+	
 	@PreAuthorize("hasAuthority('ADMIN')")	
     @RequestMapping(value = "getcoursereview/{id}", method = RequestMethod.GET)
     public @ResponseBody List<PeerReview> getCourseReviews(@PathVariable("id") long courseid) {
@@ -68,9 +74,9 @@ public class CoursemateRestController {
     }  
 
 	@PreAuthorize("hasAuthority('ADMIN')")	
-    @RequestMapping(value = "getquestions", method = RequestMethod.GET)
-    public @ResponseBody List<Question> getQuestions() {
-        return (List<Question>)qrepository.findAll();
+    @RequestMapping(value = "getcoursequetions/{id}", method = RequestMethod.GET)
+    public @ResponseBody List<Question> getCourseQuestions(@PathVariable("id") long courseid) {
+        return (List<Question>)qrepository.findByCoursecode(courseid);
     }  	
 	
     @RequestMapping(value = "savereviewresult", method = RequestMethod.POST)

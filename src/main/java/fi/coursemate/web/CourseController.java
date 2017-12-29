@@ -225,5 +225,18 @@ public class CourseController {
 		model.addAttribute("reviews", reviews);
     	return "coursereviews";
     }
-    	
+
+	/**
+	 * Show questions by course
+	 * @param courseId
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/questions/{courseid}")
+	public String courseQuestions(@PathVariable("courseid") Long courseId, Model model) {
+		Course course = crepository.findOne(courseId);
+		List<Question> questions = (List<Question>)qrepository.findByCoursecode(courseId);
+		model.addAttribute("questions", questions);
+    	return "coursereviews";
+    }	
 }
