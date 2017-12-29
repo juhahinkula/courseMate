@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add question</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link type="text/css" rel="stylesheet" th:href="@{../css/bootstrap.min.css}" />
+</head>
+<body>
+	<div th:replace="header :: header">...</div>
+	<div class="col-md-4" style="padding:80px 20px">
+		<h3>New Question</h3>
+		<form th:object="${coursequestion}" th:action="@{savecoursequestion}" action="#" method="post">
+			<input type="hidden" th:field="*{id}" class="form-control" />
+			<input type="hidden" th:field="*{course.courseid}" class="form-control" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<input type="text" th:field="*{title}" class="form-control"
+				placeholder="Title" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<input type="text" th:field="*{questionorder}" class="form-control"
+				placeholder="Order" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<input type="submit" name="action" class="btn btn-primary" value="Save"></input>
+			<input type="submit" name="action" class="btn btn-default" value="Cancel"></input>
+		</form>
+	</div>
+</body>
+</html>
