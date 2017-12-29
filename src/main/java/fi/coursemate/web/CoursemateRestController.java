@@ -67,6 +67,12 @@ public class CoursemateRestController {
         return (List<PeerReview>)prepository.findByCourseOrderByStudentAscCourseAsc(course);
     }  
 
+	@PreAuthorize("hasAuthority('ADMIN')")	
+    @RequestMapping(value = "getquestions", method = RequestMethod.GET)
+    public @ResponseBody List<Question> getQuestions() {
+        return (List<Question>)qrepository.findAll();
+    }  	
+	
     @RequestMapping(value = "savereviewresult", method = RequestMethod.POST)
 	public Response postCustomer(@RequestBody QuestionRequest question) {	
     	Response response = null;

@@ -24,13 +24,14 @@
     <div id="buttons"></div>
     <table id="reviewTable" class="table table-striped">
 		<thead>
-		<tr>
+		<tr>	    
 		    <th>Group</th>
 		    <th>Student</th>
-		    <th></th>		    
+		    <th></th>
+		    <th>Question</th>
 		    <th>Grade</th>
 		    <th>Description</th>
-		    <th>Reviewed by</th>
+		    <th>Reviewed By</th>
 		</tr> 
 		</thead> 
     </table>
@@ -38,7 +39,7 @@
 	<script>
 	$(document).ready( function () {
 		 var table = $('#reviewTable').DataTable({
-				"sAjaxSource": "/getreviews",
+				"sAjaxSource": "/getquestions",
 				"sAjaxDataProp": "",
 				"order": [[ 0, "asc" ]],
 		        "dom": 'Bfrtip',
@@ -47,14 +48,14 @@
 			        'csvHtml5',
 			        'excelHtml5'
 			    ],
-				"columns":[
-				    { "data": "course.name"},		
-				    { "data": "student.firstName",
-				    	width: "5%"},
-				    { "data": "student.lastName"},				    
+				"columns":[			    
+					{ "data": "review.course.name"},
+					{ "data": "review.student.firstName"},
+					{ "data": "review.student.lastName"},
+					{ "data": "title"},
 					{ "data": "grade"},
 					{ "data": "description"},
-					{ "data": "createdBy"},
+					{ "data": "review.createdBy"},
 				]
 		 }); 
 	});	
