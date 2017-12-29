@@ -25,10 +25,18 @@ Clone repository and run the application.
 
 ### Screenshots
 
+Add new Courses & student groups
+
 ![Screenshot](http://juhahinkula.github.com/img/coursemate_groups.png)
+
+Create questions for peer-review
 
 ![Screenshot](http://juhahinkula.github.com/img/coursemate_questions.png)
 
+Review entry (Student)
+
 ![Screenshot](http://juhahinkula.github.com/img/coursemate_peerreview.png)
+
+View reviews and export to excel or pdf (Teacher)
 
 ![Screenshot](http://juhahinkula.github.com/img/coursemate_review.png)
