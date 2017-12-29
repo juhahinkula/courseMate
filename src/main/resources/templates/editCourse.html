@@ -24,7 +24,7 @@
 			<input type="submit" name="action" class="btn btn-primary" value="Save"></input>
 			<input type="submit" name="action" class="btn btn-default" value="Cancel"></input>
 		</form>
-		<a href="/addcoursequestion/1">Add Question</a>
+		<a th:href="@{/addcoursequestion/{id}(id=${course.courseid})}">Add Question</a>
 	</div>
 </body>
 </html>

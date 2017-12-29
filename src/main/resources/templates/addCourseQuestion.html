@@ -10,7 +10,7 @@
 	<div th:replace="header :: header">...</div>
 	<div class="col-md-4" style="padding:80px 20px">
 		<h3>New Question</h3>
-		<form th:object="${coursequestion}" th:action="@{savecoursequestion}" action="#" method="post">
+		<form th:object="${coursequestion}" th:action="@{../savecoursequestion}" action="#" method="post">
 			<input type="hidden" th:field="*{id}" class="form-control" />
 			<input type="hidden" th:field="*{course.courseid}" class="form-control" />
 			<div style="clear: both; display: block; height: 10px;"></div>

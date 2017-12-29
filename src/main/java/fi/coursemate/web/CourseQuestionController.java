@@ -39,6 +39,6 @@ public class CourseQuestionController {
 		if (action.equals("Save")) {
         	cqrepository.save(courseq);
 		}
-    	return "redirect:/courses";
+    	return "redirect:/editcourse/" + courseq.getCourse().getCourseid();
     }	
 }
