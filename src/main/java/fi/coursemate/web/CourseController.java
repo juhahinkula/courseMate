@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import fi.coursemate.domain.Course;
+import fi.coursemate.domain.CourseQuestion;
+import fi.coursemate.domain.CourseQuestionRepository;
 import fi.coursemate.domain.CourseRepository;
 import fi.coursemate.domain.PeerReview;
 import fi.coursemate.domain.PeerReviewRepository;
@@ -43,6 +45,9 @@ public class CourseController {
 
 	@Autowired
     private QuestionRepository qrepository;	
+
+	@Autowired
+    private CourseQuestionRepository cqrepository;	
 	
 	@RequestMapping("/courses")
 	public String index(Model model) {
@@ -74,7 +79,9 @@ public class CourseController {
 	@PreAuthorize("hasAuthority('ADMIN')")	
     @RequestMapping(value = "/editcourse/{id}")
     public String editCourse(@PathVariable("id") Long courseId, Model model){
-    	model.addAttribute("course", crepository.findOne(courseId));
+		Course course = crepository.findOne(courseId);
+    	model.addAttribute("course", course);
+    	model.addAttribute("questions", cqrepository.findByCourse(course));
         return "editCourse";
     }	    
 
@@ -148,20 +155,18 @@ public class CourseController {
     	else {
     		review = new PeerReview(s, c);
     		prepository.save(review);
-    		// TODO
-    		// Add questions according to course rules
-    		question = new Question("NUMERICAL", "How did your mate participated?", review);
-    		qrepository.save(question);
-    		questions.add(question);
 
-    		question = new Question("ESSAY", "What would you do better?", review);
-    		qrepository.save(question);
-    		questions.add(question);
+    		// Add questions according to course rules
+    		List<CourseQuestion> coursequestions = cqrepository.findByCourse(c);
+    		
+    		for (CourseQuestion coursequestion : coursequestions) {
+    	   		question = new Question("", coursequestion.getTitle(), review);
+        		qrepository.save(question);
+        		questions.add(question);    	   	    			
+    		}
     		review.setQuestions(questions);
     	}
-    	// Use ReviewResult instead of list of questions
-    	//ReviewResults questionResults = new ReviewResults();
-    	//questionResults.setQuestions(questions);
+
     	model.addAttribute("review", review);
     	model.addAttribute("questions", questions);
     	return "review";

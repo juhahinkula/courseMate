@@ -43,6 +43,10 @@ public class Course {
     @JsonIgnore
 	private List<PeerReview> reviews;
 	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="course")
+    @JsonIgnore
+	private List<CourseQuestion> coursequestions;	
+	
     public Course() {
 	}
 
@@ -104,5 +108,13 @@ public class Course {
 
 	public void setReviews(List<PeerReview> reviews) {
 		this.reviews = reviews;
+	}
+
+	public List<CourseQuestion> getCoursequestions() {
+		return coursequestions;
+	}
+
+	public void setCoursequestions(List<CourseQuestion> coursequestions) {
+		this.coursequestions = coursequestions;
 	}	
 }

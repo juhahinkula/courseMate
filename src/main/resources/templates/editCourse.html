@@ -23,8 +23,22 @@
 			<div style="clear: both; display: block; height: 10px;"></div>
 			<input type="submit" name="action" class="btn btn-primary" value="Save"></input>
 			<input type="submit" name="action" class="btn btn-default" value="Cancel"></input>
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<h5>Course Questions</h5>
+		    <table class="table table-striped">
+				<tr>
+				    <th>Title</th>
+				    <th>Order</th>
+				    <th>Action</th>
+				</tr>  
+		    	<tr th:each = "question : ${questions}">
+		    		<td th:text="${question.title}"></td>
+		    		<td th:text="${question.questionorder}"></td>
+    				<td><a th:href="@{/deletequestion/{id}(id=${question.id})}" class="btn btn-danger btn-xs">Delete</a></td>
+		    	</tr>
+		    </table>			
 		</form>
-		<a th:href="@{/addcoursequestion/{id}(id=${course.courseid})}">Add Question</a>
+		<a class="btn btn-primary" th:href="@{/addcoursequestion/{id}(id=${course.courseid})}"><span class="glyphicon glyphicon-plus"></span> Add Question</a>
 	</div>
 </body>
 </html>
