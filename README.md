@@ -17,7 +17,7 @@ Superuser: super/super
 
 ### Installation
 
-Create MariaDB database called 'coursemate'
+Install MariaDB and create database called 'coursemate'
 
 Clone repository and run the application.
 
