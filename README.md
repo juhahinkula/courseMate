@@ -1,8 +1,8 @@
 # CourseMate
 
-CourseMate is a software for collecting peer reviews from the groups of students. Students can be grouped and each student in the group can review other students that belongs to the same group.
+CourseMate is an application for collecting peer reviews from the groups of students. Students can be grouped and each student in the group can review other students that belongs to the same group.
 
-Students can see only the reviews they have given. The teacher that owns the group can see all reviews from the group. Superuser can add new teachers.
+Students can see only the reviews they have given. The teacher who owns the group can see all reviews from the group. Superuser can add new teachers.
 
 Application contains some demousers
 Students: user1-5/user
@@ -25,18 +25,18 @@ Clone repository and run the application.
 
 ### Screenshots
 
-Add new Courses & student groups
+##### Courses & student groups
 
 ![Screenshot](http://juhahinkula.github.com/img/coursemate_groups.png)
 
-Create questions for peer-review
+##### Create questions for peer-review
 
 ![Screenshot](http://juhahinkula.github.com/img/coursemate_questions.png)
 
-Review entry (Student)
+##### Review entry (Student)
 
 ![Screenshot](http://juhahinkula.github.com/img/coursemate_peerreview.png)
 
-View reviews and export to excel or pdf (Teacher)
+##### View reviews and export to excel or pdf (Teacher)
 
 ![Screenshot](http://juhahinkula.github.com/img/coursemate_review.png)
