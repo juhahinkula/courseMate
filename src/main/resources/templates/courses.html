@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" 
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>Grouplist</title>
+    <title>Courselist</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
@@ -14,13 +14,13 @@
 	<div th:replace="header :: header">...</div>
     
     <div style="padding:60px 20px">
-    <h3>Groups</h3>
+    <h3>Courses / Groups</h3>
     <table id="courseTable" class="table table-striped">
 		<thead>
 		<tr>
 		    <th>Id</th>
-		    <th>Code</th>
-		    <th>Name</th>
+		    <th>Course</th>
+		    <th>Group</th>
 		    <th>Owner</th>		    
 		    <th>Actions</th>		    
 		    <th></th>	
@@ -29,7 +29,7 @@
 		</thead>
     </table>
     <a href="/addcourse" class="btn btn-primary" sec:authorize="hasAnyAuthority('ADMIN', 'SUPERUSER')">
-      <span class="glyphicon glyphicon-plus"></span> New group
+      <span class="glyphicon glyphicon-plus"></span> New course
     </a>
 	</div>  
 	<script>

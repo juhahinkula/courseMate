@@ -31,6 +31,13 @@ public class CourseQuestionController {
 		model.addAttribute("coursequestion", cq);
         return "addCourseQuestion";
     }
+
+	@PreAuthorize("hasAuthority('ADMIN')")	
+    @RequestMapping(value = "deletequestion/{id}/{courseid}")
+    public String deleteCourseQuestion(@PathVariable("id") Long questionid, @PathVariable("courseid") Long courseid, Model model){
+    	cqrepository.delete(questionid);
+       	return "redirect:/editcourse/" + courseid;
+    }	
 	
 	@PreAuthorize("hasAuthority('ADMIN')")    
     @RequestMapping(value = "savecoursequestion", method = RequestMethod.POST)

@@ -1,30 +1,32 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Edit group</title>
+    <title>Edit course</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
 	<div th:replace="header :: header">...</div>
-	<div class="col-md-4" style="padding:80px 20px">
-		<h3>Edit group</h3>
+	<div class="col-md-6" style="padding:80px 20px">
+		<h3>Edit Course</h3>
 		<form th:object="${course}" th:action="@{../savecourse}" action="#" method="post">
 			<input type="hidden" th:field="*{courseid}" class="form-control"/>
 			<input type="hidden" th:field="*{createdBy}" class="form-control"/>
-			<label for="code">Code</label>
+			<label for="code">Course</label>
 			<input type="text" id="code" th:field="*{coursecode}" class="form-control"
 				placeholder="Code" />
 			<div style="clear: both; display: block; height: 10px;"></div>		
-			<label for="name">Name</label>
+			<label for="name">Group</label>
 			<input type="text" id="name" th:field="*{name}" class="form-control"
 				placeholder="Name" />
 			<div style="clear: both; display: block; height: 10px;"></div>
 			<input type="submit" name="action" class="btn btn-primary" value="Save"></input>
 			<input type="submit" name="action" class="btn btn-default" value="Cancel"></input>
-			<div style="clear: both; display: block; height: 10px;"></div>
-			<h5>Course Questions</h5>
+			<div style="clear: both; display: block; height: 20px;"></div>
+			<div class="panel panel-default">
+			<div class="panel-heading">Group Questions</div>
+			<div class="panel-body">
 		    <table class="table table-striped">
 				<tr>
 				    <th>Title</th>
@@ -34,9 +36,11 @@
 		    	<tr th:each = "question : ${questions}">
 		    		<td th:text="${question.title}"></td>
 		    		<td th:text="${question.questionorder}"></td>
-    				<td><a th:href="@{/deletequestion/{id}(id=${question.id})}" class="btn btn-danger btn-xs">Delete</a></td>
+    				<td><a th:href="@{/deletequestion/{id}/{courseid}(id=${question.id}, courseid=${course.courseid})}" class="btn btn-danger btn-xs">Delete</a></td>
 		    	</tr>
-		    </table>			
+		    </table>		
+		    </div>
+		    </div>	
 		</form>
 		<a class="btn btn-primary" th:href="@{/addcoursequestion/{id}(id=${course.courseid})}"><span class="glyphicon glyphicon-plus"></span> Add Question</a>
 	</div>
