@@ -4,30 +4,75 @@
     <title>Review</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link type="text/css" rel="stylesheet" th:href="@{/../css/bootstrap.min.css}" />
+    <script type="text/javascript" src="../../js/jquery-3.2.1.min.js"></script>	
+	<link type="text/css" rel="stylesheet" th:href="@{../../css/bootstrap.min.css}" />
+	<meta name="_csrf" th:content="${_csrf.token}"/>
+	<meta name="_csrf_header" th:content="${_csrf.headerName}"/>	
 </head>
 <body>
 	<div th:replace="header :: header">...</div>
-	<div class="col-md-4" style="padding:80px 20px">
+	<div class="col-md-6" style="padding:80px 20px">
 		<h3>Review</h3>
 		<p th:text="${review.student.firstName} + ' ' + ${review.student.lastName}" class="form-control"/>
 		<p th:text="${review.course.name}" class="form-control"/>
-		<form th:object="${question}" th:action="@{/../savequestion}" action="#" method="post">
-			<input type="hidden" th:field="*{id}" class="form-control"/>
-			<input type="hidden" th:field="*{review}" class="form-control"/>
-			<input type="hidden" th:field="*{title}" class="form-control"/>
-			<input type="hidden" th:field="*{type}" class="form-control"/>
-			<label for="grade"><span th:text="*{title}">...</span></label>
-			<input id="grade" type="number" th:field="*{grade}" class="form-control"
-				placeholder="1-5" />
-			<div style="clear: both; display: block; height: 10px;"></div>
-			<label for="description">Textual assessment</label>
-			<textarea id="description" th:field="*{description}" class="form-control"
-				placeholder="assessment" />
-			<div style="clear: both; display: block; height: 10px;"></div>
-			<input type="submit" name="action" class="btn btn-primary" value="Save"></input>
-			<input type="submit" name="action" class="btn btn-default" value="Cancel"></input>
-		</form>
+		<table id="reviewtable" class="table table-condensed">
+			<thead>
+				<tr>
+					<th scope="col">Question</th>
+					<th scope="col">Grade</th>
+					<th scope="col">Description</th>
+		    	</tr>
+			</thead>
+			<tr th:each = "question : ${questions}">
+			    <td style="display:none;"><input type="hidden" th:id="id" th:value="${question.id}"/></td>
+			    <td style="display:none;"><input type="hidden" th:id="reviewid" th:value="${question.review.reviewid}"/></td>
+			    <td th:id="title" th:text="${question.title}"></td>
+			    <td><input th:id="grade" type="numeric" th:value="${question.grade}"/></td>
+			    <td><textarea th:id="desc" th:text="${question.description}" th:value="${question.description}"/></td>
+				<td><button class="btn btn-primary btn-sm">Save</button></td>
+			</tr>	
+		</table>
+		<a class="btn btn-primary" href="javascript: history.back(1)">Back</a>
 	</div>
+	<script>
+	$(document).ready( function () {
+		$("button").click( function() {
+			const btn = $(this);
+			const id = $(this).closest("tr").find("#id").val();
+			const reviewid = $(this).closest("tr").find("#reviewid").val();
+			const title = $(this).closest("tr").find("#title").text();
+			const grade = $(this).closest("tr").find("#grade").val();
+			const desc = $(this).closest("tr").find("#desc").val();
+			
+			const token = $("meta[name='_csrf']").attr("content");
+			const header = $("meta[name='_csrf_header']").attr("content");
+
+			const result = {"id": id, "title": title, "grade": grade, "desc": desc, "reviewid": reviewid};
+			
+			$.ajax({
+				type: "POST",
+				url: "/savereviewresult",
+			    data: JSON.stringify(result),
+			    dataType: 'json',
+		        contentType: "application/json",
+			    beforeSend: function(xhr) {
+				xhr.setRequestHeader(header, token);
+				},
+				success: function(data, textStatus, jqXHR) {	
+					if (data.status == "Success") {
+						btn.closest("tr").children('td').css('background-color','#CCFFCC');	
+					}
+					else if (data.status == "Error") {
+						btn.closest("tr").children('td').css('background-color','#FFCCCC');			
+					}
+				},
+				error: function(request, status, error) {
+					alert('Error: ' + error);			
+					btn.closest("tr").children('td').css('background-color','#FFCCCC');			
+				}
+			});			
+		})
+	});
+	</script>
 </body>
 </html>

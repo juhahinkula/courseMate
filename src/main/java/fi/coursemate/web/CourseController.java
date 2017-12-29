@@ -1,5 +1,6 @@
 package fi.coursemate.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +21,7 @@ import fi.coursemate.domain.PeerReview;
 import fi.coursemate.domain.PeerReviewRepository;
 import fi.coursemate.domain.Question;
 import fi.coursemate.domain.QuestionRepository;
+import fi.coursemate.domain.Response;
 import fi.coursemate.domain.Student;
 import fi.coursemate.domain.StudentRepository;
 import fi.coursemate.domain.User;
@@ -134,11 +137,13 @@ public class CourseController {
     	List<PeerReview> reviews = prepository.findByStudentAndCourseAndCreatedBy(s, c, reviewer);
     	PeerReview review;
     	Question question = null;
+    	List<Question> questions = new ArrayList<Question>(); 
     	// Check if review already exist
     	if (!reviews.isEmpty()) {
     		review = reviews.get(0);
     		// find questions
-    		question = qrepository.findByReview(review).get(0);
+    		questions = qrepository.findByReview(review);
+    		review.setQuestions(questions);
     	}
     	else {
     		review = new PeerReview(s, c);
@@ -147,10 +152,18 @@ public class CourseController {
     		// Add questions according to course rules
     		question = new Question("NUMERICAL", "How did your mate participated?", review);
     		qrepository.save(question);
+    		questions.add(question);
+
+    		question = new Question("ESSAY", "What would you do better?", review);
+    		qrepository.save(question);
+    		questions.add(question);
+    		review.setQuestions(questions);
     	}
+    	// Use ReviewResult instead of list of questions
+    	//ReviewResults questionResults = new ReviewResults();
+    	//questionResults.setQuestions(questions);
     	model.addAttribute("review", review);
-    	model.addAttribute("question", question);
-    	System.out.println("QUESTION: " + question.getTitle());
+    	model.addAttribute("questions", questions);
     	return "review";
     }	
 
@@ -184,6 +197,20 @@ public class CourseController {
     	}
     	return "redirect:/coursestudents/" + Long.toString(courseid);
     }    
+
+
+    /**
+     * Save Peer-review results
+     * 
+     * @param review
+     * @return
+     */
+    @RequestMapping(value = "savereviewresults", method = RequestMethod.POST)
+    public String saveResult() {
+		//System.out.println("Saving Results: " + reviews.getQuestions().size());
+
+    	return "redirect:/coursestudents/1"; // + Long.toString(courseid);
+    }     
     
 	/**
 	 * Show reviews by course

@@ -118,4 +118,12 @@ public class PeerReview {
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
+
+	public List<Question> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(List<Question> questions) {
+		this.questions = questions;
+	}
 }

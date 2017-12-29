@@ -29,7 +29,7 @@ public class CoursemateApplication {
 	}
 	
 	/**
-	 * Save students and courses to H2 DB for testing
+	 * Save students and courses to DB for testing
 	 * @param repository
 	 * @return
 	 */
