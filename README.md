@@ -27,4 +27,6 @@ Clone repository and run the application.
 
 ![Screenshot](http://juhahinkula.github.com/img/coursemate_groups.png)
 
+![Screenshot](http://juhahinkula.github.com/img/coursemate_peerreview.png)
+
 ![Screenshot](http://juhahinkula.github.com/img/coursemate_review.png)
