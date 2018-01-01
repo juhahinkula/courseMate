@@ -4,6 +4,8 @@
     <title>Edit course</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>	
 	<link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
@@ -43,6 +45,36 @@
 		    </div>	
 		</form>
 		<a class="btn btn-primary" th:href="@{/addcoursequestion/{id}(id=${course.courseid})}"><span class="glyphicon glyphicon-plus"></span> Add Question</a>
+		<a class="btn btn-default" data-toggle="modal" data-target="#copyModal">Copy Questions</a>
+	
+
+	<!-- Copy questions modal-->
+	<div class="modal fade" id="copyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Copy questions</h4>
+	      </div>
+	      <div class="modal-body">
+	      	<form th:action="@{../copyquestions/{id}(id=${course.courseid})}" th:object="${selectedCourse}" id="copyform" action="#" method="post">
+	      	   	<div style="padding: 10px">
+	      	   	<label for="coursesel">Select course:</label>
+	      	   	<select th:field="*{selectedcourseid}" class="form-control" id="coursesel">
+                	<option th:each="courserow : ${courses}"
+                    	th:value="${courserow.courseid}"
+                    	th:text="${courserow.coursecode}" />
+             	</select>
+             	</div>
+	        	<button type="submit" class="btn btn-primary">Copy</button>
+	        	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+	         </form>
+	      </div>
+	      <div class="modal-footer">
+	      </div>
+	    </div>
+	  </div>
+	</div>	
 	</div>
 </body>
 </html>

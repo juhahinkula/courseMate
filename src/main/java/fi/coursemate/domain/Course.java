@@ -26,6 +26,8 @@ public class Course {
 	private long courseid;
 
 	private String coursecode;
+	
+    private String status;
     
     @Column(name="coursename")
 	private String name; 
@@ -48,10 +50,12 @@ public class Course {
 	private List<CourseQuestion> coursequestions;	
 	
     public Course() {
-	}
+    	this.status = "OPEN";
+    }
 
 	public Course(String name) {
 		this.name = name;
+	   	this.status = "OPEN";
 	}     
 
 	public long getCourseid() {

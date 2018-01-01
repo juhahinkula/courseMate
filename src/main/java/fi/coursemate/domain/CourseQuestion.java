@@ -7,6 +7,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+/**
+ * Defines what questions course peer-review contains
+ * 
+ * @author Juha Hinkula
+ *
+ */
 @Entity
 public class CourseQuestion {
     @Id
@@ -24,6 +30,13 @@ public class CourseQuestion {
     
 	public CourseQuestion(Course course) {
 		super();
+		this.course = course;
+	}
+	
+	public CourseQuestion(String title, int questionorder, Course course) {
+		super();
+		this.title = title;
+		this.questionorder = questionorder;
 		this.course = course;
 	}
 

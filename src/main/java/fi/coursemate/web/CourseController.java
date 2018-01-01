@@ -24,6 +24,7 @@ import fi.coursemate.domain.PeerReviewRepository;
 import fi.coursemate.domain.Question;
 import fi.coursemate.domain.QuestionRepository;
 import fi.coursemate.domain.Response;
+import fi.coursemate.domain.SelectedCourse;
 import fi.coursemate.domain.Student;
 import fi.coursemate.domain.StudentRepository;
 import fi.coursemate.domain.User;
@@ -80,8 +81,13 @@ public class CourseController {
     @RequestMapping(value = "/editcourse/{id}")
     public String editCourse(@PathVariable("id") Long courseId, Model model){
 		Course course = crepository.findOne(courseId);
+		// Course list for copy question functionality
+		List<Course> courses = (List<Course>)crepository.findAll();
     	model.addAttribute("course", course);
-    	model.addAttribute("questions", cqrepository.findByCourse(course));
+    	model.addAttribute("courses", courses);
+    	// Copy course drop down list
+    	model.addAttribute("selectedCourse", new SelectedCourse());
+    	model.addAttribute("questions", cqrepository.findByCourseOrderByQuestionorder(course));
         return "editCourse";
     }	    
 
@@ -157,7 +163,7 @@ public class CourseController {
     		prepository.save(review);
 
     		// Add questions according to course rules
-    		List<CourseQuestion> coursequestions = cqrepository.findByCourse(c);
+    		List<CourseQuestion> coursequestions = cqrepository.findByCourseOrderByQuestionorder(c);
     		
     		for (CourseQuestion coursequestion : coursequestions) {
     	   		question = new Question("", coursequestion.getTitle(), review);

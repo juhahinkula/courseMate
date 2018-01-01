@@ -1,7 +1,12 @@
 package fi.coursemate.domain;
 
 
-
+/**
+ * AJAX response class for peer-review result entry
+ * 
+ * @author Juha Hinkula
+ *
+ */
 public class Response {
 	private Question question;
 	private String status;

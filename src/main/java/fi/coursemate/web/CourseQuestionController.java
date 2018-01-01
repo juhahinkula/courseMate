@@ -1,5 +1,7 @@
 package fi.coursemate.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import fi.coursemate.domain.Course;
 import fi.coursemate.domain.CourseQuestion;
 import fi.coursemate.domain.CourseQuestionRepository;
 import fi.coursemate.domain.CourseRepository;
+import fi.coursemate.domain.SelectedCourse;
 
 @Controller
 public class CourseQuestionController {
@@ -38,14 +41,39 @@ public class CourseQuestionController {
     	cqrepository.delete(questionid);
        	return "redirect:/editcourse/" + courseid;
     }	
+
+	
+	/**
+	 * Copy questions from the selected course
+	 * 
+	 * @param courseid
+	 * @param model
+	 * @param selcourse
+	 * @return
+	 */
+	@PreAuthorize("hasAuthority('ADMIN')")	
+    @RequestMapping(value = "copyquestions/{courseid}")
+    public String copyQuestions(@PathVariable("courseid") Long courseid, Model model, SelectedCourse selcourse){
+       	Course course = crepository.findOne(courseid);
+       	Course copyCourse = crepository.findOne(selcourse.getSelectedcourseid());
+       	List<CourseQuestion> courseQuestions = copyCourse.getCoursequestions();
+		for (CourseQuestion question : courseQuestions) {
+			CourseQuestion q = new CourseQuestion(question.getTitle(), question.getQuestionorder(), course);
+			cqrepository.save(q);
+		}
+		crepository.save(course);
+		return "redirect:/editcourse/" + courseid;
+    }		
 	
 	@PreAuthorize("hasAuthority('ADMIN')")    
     @RequestMapping(value = "savecoursequestion", method = RequestMethod.POST)
     public String save(@RequestParam(value="action", required=true) String action, CourseQuestion courseq){
-        System.out.println("Course: " + courseq.getTitle());
+        long courseid = courseq.getCourse().getCourseid();
 		if (action.equals("Save")) {
-        	cqrepository.save(courseq);
+			if (!courseq.getTitle().isEmpty())
+				cqrepository.save(courseq);
+			
 		}
-    	return "redirect:/editcourse/" + courseq.getCourse().getCourseid();
+    	return "redirect:/editcourse/" + courseid;
     }	
 }

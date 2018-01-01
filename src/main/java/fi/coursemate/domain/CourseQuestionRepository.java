@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface CourseQuestionRepository extends CrudRepository<CourseQuestion, Long> {
 
-	List<CourseQuestion> findByCourse(Course course);
+	List<CourseQuestion> findByCourseOrderByQuestionorder(Course course);
 	
 }

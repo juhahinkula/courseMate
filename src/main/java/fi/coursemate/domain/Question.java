@@ -7,6 +7,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+/**
+ * Peer-review questions
+ * 
+ * @author Juha Hinkula
+ *
+ */
 @Entity
 public class Question {
     @Id
