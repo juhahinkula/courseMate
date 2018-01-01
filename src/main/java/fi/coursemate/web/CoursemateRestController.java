@@ -117,8 +117,11 @@ public class CoursemateRestController {
     	if (hasRole("ADMIN")) {
     		courses = (List<Course>)crepository.findByCreatedByAndStatus(userName, "OPEN");
     	}
+    	else if (hasRole("SUPERUSER")) {
+    		courses = (List<Course>)crepository.findAll();    		
+    	}
     	else {
-    		courses = (List<Course>)crepository.findByCourseMemberAndStatus(id, "OPEN");
+    		courses = (List<Course>)crepository.findByCourseMember(id);
     	}
     	
     	return courses;

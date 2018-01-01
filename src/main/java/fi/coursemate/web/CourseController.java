@@ -77,6 +77,7 @@ public class CourseController {
 	 * @param model
 	 * @return
 	 */
+	@PreAuthorize("hasAnyAuthority('ADMIN' ,'SUPERUSER')")	
 	@RequestMapping("/archivecourse/{id}")
 	public String archiveCourse(@PathVariable("id") Long courseid, Model model) {
 		Course course = crepository.findOne(courseid);
@@ -85,14 +86,14 @@ public class CourseController {
     	return "redirect:/courses";
     }		
 	
-	@PreAuthorize("hasAuthority('ADMIN')")	
+	@PreAuthorize("hasAnyAuthority('ADMIN' ,'SUPERUSER')")
     @RequestMapping(value = "addcourse")
     public String addCourse(Model model){
     	model.addAttribute("course", new Course());
         return "addCourse";
     }	
 
-	@PreAuthorize("hasAuthority('ADMIN')")	
+	@PreAuthorize("hasAnyAuthority('ADMIN' ,'SUPERUSER')")	
     @RequestMapping(value = "/editcourse/{id}")
     public String editCourse(@PathVariable("id") Long courseId, Model model){
 		Course course = crepository.findOne(courseId);
@@ -123,7 +124,7 @@ public class CourseController {
     	return "enrollCourse";
     }	
 	
-	@PreAuthorize("hasAuthority('ADMIN')")    
+	@PreAuthorize("hasAnyAuthority('ADMIN' ,'SUPERUSER')") 
     @RequestMapping(value = "savecourse", method = RequestMethod.POST)
     public String save(@RequestParam(value="action", required=true) String action, Course course){
         if (action.equals("Save")) {
@@ -132,14 +133,14 @@ public class CourseController {
     	return "redirect:/courses";
     }
     
-	@PreAuthorize("hasAuthority('ADMIN')")	
+	@PreAuthorize("hasAnyAuthority('SUPERUSER')")
     @RequestMapping(value = "/deletecourse/{id}", method = RequestMethod.GET)
     public String deleteCourse(@PathVariable("id") Long courseId, Model model) {
     	crepository.delete(courseId);
         return "redirect:/courses";
     }     
 
-	@PreAuthorize("hasAuthority('ADMIN')")		
+	@PreAuthorize("hasAnyAuthority('ADMIN' ,'SUPERUSER')")	
 	@RequestMapping("/findreviews")
 	public String reviews(Model model) {
     	return "findreviews";
