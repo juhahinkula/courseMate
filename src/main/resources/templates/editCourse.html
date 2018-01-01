@@ -11,7 +11,7 @@
 <body>
 	<div th:replace="header :: header">...</div>
 	<div class="col-md-6" style="padding:80px 20px">
-		<h3>Edit Course</h3>
+		<h3>Edit Course<a style="margin-left: 450px" class="btn btn-danger btn-xs" th:href="@{../archivecourse/{id}(id=${course.courseid})}">Archive</a></h3>
 		<form th:object="${course}" th:action="@{../savecourse}" action="#" method="post">
 			<input type="hidden" th:field="*{courseid}" class="form-control"/>
 			<input type="hidden" th:field="*{createdBy}" class="form-control"/>

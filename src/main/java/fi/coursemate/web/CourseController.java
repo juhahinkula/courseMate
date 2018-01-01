@@ -70,6 +70,21 @@ public class CourseController {
 		return "coursestudents";
     }	
 
+	/**
+	 * Archive course
+	 * 
+	 * @param courseid
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/archivecourse/{id}")
+	public String archiveCourse(@PathVariable("id") Long courseid, Model model) {
+		Course course = crepository.findOne(courseid);
+		course.setStatus("CLOSED");
+		crepository.save(course);
+    	return "redirect:/courses";
+    }		
+	
 	@PreAuthorize("hasAuthority('ADMIN')")	
     @RequestMapping(value = "addcourse")
     public String addCourse(Model model){
@@ -82,7 +97,7 @@ public class CourseController {
     public String editCourse(@PathVariable("id") Long courseId, Model model){
 		Course course = crepository.findOne(courseId);
 		// Course list for copy question functionality
-		List<Course> courses = (List<Course>)crepository.findAll();
+		List<Course> courses = (List<Course>)crepository.findByStatus("OPEN");
     	model.addAttribute("course", course);
     	model.addAttribute("courses", courses);
     	// Copy course drop down list

@@ -1,15 +1,10 @@
 package fi.coursemate;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import fi.coursemate.domain.Course;
-import fi.coursemate.domain.CourseRepository;
 import fi.coursemate.domain.Student;
 import fi.coursemate.domain.StudentRepository;
 import fi.coursemate.domain.User;
@@ -34,7 +29,7 @@ public class CoursemateApplication {
 	 * @return
 	 */
 	@Bean
-	public CommandLineRunner demo(StudentRepository repository, CourseRepository crepository, UserRepository urepository) {
+	public CommandLineRunner demo(StudentRepository repository, UserRepository urepository) {
 		return (args) -> {
 			// Create users with BCrypt encoded password (user/user, admin/admin)
 			User user1 = new User("user1", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER");

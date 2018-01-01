@@ -115,10 +115,10 @@ public class CoursemateRestController {
     	long id = urepository.findByUsername(userName).getId();
     	List<Course> courses = null;
     	if (hasRole("ADMIN")) {
-    		courses = (List<Course>)crepository.findByCreatedBy(userName);
+    		courses = (List<Course>)crepository.findByCreatedByAndStatus(userName, "OPEN");
     	}
     	else {
-    		courses = (List<Course>)crepository.findByCourseMember(id);
+    		courses = (List<Course>)crepository.findByCourseMemberAndStatus(id, "OPEN");
     	}
     	
     	return courses;
@@ -131,7 +131,7 @@ public class CoursemateRestController {
      */
     @RequestMapping(value = "getallcourses", method = RequestMethod.GET)
     public @ResponseBody List<Course> getAllCourses() {    	
-    	return (List<Course>)crepository.findAll();
+    	return (List<Course>)crepository.findByStatus("OPEN");
     }    
     
     /**
