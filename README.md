@@ -19,7 +19,7 @@ Superuser: super/super
 
 Install MariaDB and create database called 'coursemate'
 
-Clone repository and run the application.
+Clone repository and run the application (Note! Change MySql password in application.properties file).
 
     mvnw spring-boot:run
 
