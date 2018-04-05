@@ -116,8 +116,12 @@ public class CourseController {
     public String enrollCourse(Model model) {
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     	String username = authentication.getName();  
+    	System.out.println("Username: " + username);
     	User user = urepository.findByUsername(username);
+    	System.out.println("Username2: " + user.getUsername());    	
     	Student student = repository.findByUser(user);
+    	System.out.println("Student email: " + student.getEmail());
+
     	model.addAttribute("student", student);
     	model.addAttribute("courses", crepository.findAll());
     	return "enrollCourse";

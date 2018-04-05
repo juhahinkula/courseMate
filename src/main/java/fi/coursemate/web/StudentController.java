@@ -111,8 +111,9 @@ public class StudentController {
     	System.out.println("USER: " + username);
     	User user = urepository.findByUsername(username);
     	Student student = user.getStudent();
+       	System.out.println("STUDENT: " + student.getEmail());
     	model.addAttribute("courses", crepository.findAll());
-		model.addAttribute("student", repository.findById(student.getId()));
+		model.addAttribute("student", student);
 		return "addStudentCourse";
     }
 
