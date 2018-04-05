@@ -2,6 +2,7 @@ package fi.coursemate.web;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -53,7 +54,7 @@ public class StudentController {
 
     @RequestMapping(value = "/edit/{id}")
     public String editStudent(@PathVariable("id") Long studentId, Model model){
-    	model.addAttribute("student", repository.findOne(studentId));
+    	model.addAttribute("student", repository.findById(studentId));
         return "editStudent";
     }	    
     
@@ -78,7 +79,7 @@ public class StudentController {
 	@PreAuthorize("hasAuthority('ADMIN')")    
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String deleteStudent(@PathVariable("id") Long studentId, Model model) {
-    	repository.delete(studentId);
+		repository.deleteById(studentId);
         return "redirect:/students";
     }    
     
@@ -93,7 +94,7 @@ public class StudentController {
     @RequestMapping(value = "addStudentCourse/{id}", method = RequestMethod.GET)
     public String addCourse(@PathVariable("id") Long studentId, Model model) {
     	model.addAttribute("courses", crepository.findAll());
-		model.addAttribute("student", repository.findOne(studentId));
+		model.addAttribute("student", repository.findById(studentId).get());
     	return "addStudentCourse";
     }
     
@@ -111,22 +112,22 @@ public class StudentController {
     	User user = urepository.findByUsername(username);
     	Student student = user.getStudent();
     	model.addAttribute("courses", crepository.findAll());
-		model.addAttribute("student", repository.findOne(student.getId()));
+		model.addAttribute("student", repository.findById(student.getId()));
 		return "addStudentCourse";
     }
 
 	
     @RequestMapping(value="/student/{id}/{courseId}", method=RequestMethod.GET)
 	public String studentsAddCourse(@PathVariable Long id, @PathVariable Long courseId, Model model) {
-		Course course = crepository.findOne(courseId);
-		Student student = repository.findOne(id);
+		Optional<Course> course = crepository.findById(courseId);
+		Optional<Student> student = repository.findById(id);
 
 		if (student != null) {
-			if (!student.hasCourse(course)) {
-				student.getCourses().add(course);
+			if (!student.get().hasCourse(course.get())) {
+				student.get().getCourses().add(course.get());
 			}
-			repository.save(student);
-			model.addAttribute("student", crepository.findOne(id));
+			repository.save(student.get());
+			model.addAttribute("student", crepository.findById(id));
 			model.addAttribute("courses", crepository.findAll());
 			if (hasRole("ADMIN"))
 				return "redirect:/students";

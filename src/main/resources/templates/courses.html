@@ -37,7 +37,6 @@
 		 var table = $('#courseTable').DataTable({
 				"sAjaxSource": "/getcourses",
 				"sAjaxDataProp": "",
-				"order": [[ 0, "asc" ]],
 				"columns":[
 				    { "data": "courseid",
 				    	"visible": false},		
@@ -58,7 +57,7 @@
 							"width": "9%",
 						   	"searchable": false,
 						   	"render": function(data, type, row, meta) {
-						    	const a = '<a sec:authorize="hasAuthority('ADMIN')" href="questions/' + row.courseid + '">View Reviews</a>';
+						    	const a = '<a href="questions/' + row.courseid + '">View Reviews</a>';
 						    	return a;
 						  	}
 					},					
@@ -67,7 +66,7 @@
 					   	"searchable": false,
 				    	"width": "9%",
 					   	"render": function(data, type, row, meta) {
-					    	const a = '<a sec:authorize="hasAnyAuthority('ADMIN', 'SUPERUSER')" href="/editcourse/' + row.courseid + '">Edit / Questions</a>';
+					    	const a = '<a href="/editcourse/' + row.courseid + '">Edit / Questions</a>';
 					    	return a;
 					  	}
 					}

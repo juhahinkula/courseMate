@@ -36,7 +36,6 @@
 		 var table = $('#studentTable').DataTable({
 				"sAjaxSource": "/getstudents",
 				"sAjaxDataProp": "",
-				"order": [[ 0, "asc" ]],
 				"columns": [
 				    { "data": "id",
 				    	"visible": false},
@@ -50,7 +49,7 @@
 				    	"orderable": false,
 					   	"searchable": false,
 					   	"render": function(data, type, row, meta) {
-					    	const a = '<a sec:authorize="hasAuthority('ADMIN')" href="/addStudentCourse/' + row.id + '">Add group</a>';
+					    	const a = '<a href="/addStudentCourse/' + row.id + '">Add group</a>';
 					        return a;
 					   }
 					},
@@ -59,7 +58,7 @@
 				       	"orderable": false,
 				       	"searchable": false,
 				        "render": function(data, type, row, meta) {
-				    		const a = '<a sec:authorize="hasAuthority('ADMIN')" href="/edit/' + row.id + '">Edit</a>';
+				    		const a = '<a href="/edit/' + row.id + '">Edit</a>';
 				        	return a;
 				        }
 				    }				    

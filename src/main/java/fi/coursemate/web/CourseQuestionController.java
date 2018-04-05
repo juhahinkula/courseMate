@@ -1,6 +1,7 @@
 package fi.coursemate.web;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,8 +29,8 @@ public class CourseQuestionController {
 	@PreAuthorize("hasAuthority('ADMIN')")	
     @RequestMapping(value = "addcoursequestion/{id}")
     public String addCourseQuestion(@PathVariable("id") Long courseid, Model model){
-    	Course c = crepository.findOne(courseid);
-    	CourseQuestion cq = new CourseQuestion(c);
+    	Optional<Course> c = crepository.findById(courseid);
+    	CourseQuestion cq = new CourseQuestion(c.get());
     	cqrepository.save(cq);
 		model.addAttribute("coursequestion", cq);
         return "addCourseQuestion";
@@ -38,7 +39,7 @@ public class CourseQuestionController {
 	@PreAuthorize("hasAuthority('ADMIN')")	
     @RequestMapping(value = "deletequestion/{id}/{courseid}")
     public String deleteCourseQuestion(@PathVariable("id") Long questionid, @PathVariable("courseid") Long courseid, Model model){
-    	cqrepository.delete(questionid);
+    	cqrepository.deleteById(questionid);
        	return "redirect:/editcourse/" + courseid;
     }	
 
@@ -54,14 +55,14 @@ public class CourseQuestionController {
 	@PreAuthorize("hasAuthority('ADMIN')")	
     @RequestMapping(value = "copyquestions/{courseid}")
     public String copyQuestions(@PathVariable("courseid") Long courseid, Model model, SelectedCourse selcourse){
-       	Course course = crepository.findOne(courseid);
-       	Course copyCourse = crepository.findOne(selcourse.getSelectedcourseid());
-       	List<CourseQuestion> courseQuestions = copyCourse.getCoursequestions();
+       	Optional<Course> course = crepository.findById(courseid);
+       	Optional<Course> copyCourse = crepository.findById(selcourse.getSelectedcourseid());
+       	List<CourseQuestion> courseQuestions = copyCourse.get().getCoursequestions();
 		for (CourseQuestion question : courseQuestions) {
-			CourseQuestion q = new CourseQuestion(question.getTitle(), question.getQuestionorder(), course);
+			CourseQuestion q = new CourseQuestion(question.getTitle(), question.getQuestionorder(), course.get());
 			cqrepository.save(q);
 		}
-		crepository.save(course);
+		crepository.save(course.get());
 		return "redirect:/editcourse/" + courseid;
     }		
 	

@@ -2,6 +2,7 @@ package fi.coursemate.web;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -69,8 +70,8 @@ public class CoursemateRestController {
 	@PreAuthorize("hasAuthority('ADMIN')")	
     @RequestMapping(value = "getcoursereview/{id}", method = RequestMethod.GET)
     public @ResponseBody List<PeerReview> getCourseReviews(@PathVariable("id") long courseid) {
-		Course course = crepository.findOne(courseid);
-        return (List<PeerReview>)prepository.findByCourseOrderByStudentAscCourseAsc(course);
+		Optional<Course> course = crepository.findById(courseid);
+        return (List<PeerReview>)prepository.findByCourseOrderByStudentAscCourseAsc(course.get());
     }  
 
 	@PreAuthorize("hasAuthority('ADMIN')")	
@@ -89,7 +90,7 @@ public class CoursemateRestController {
 	    	q.setDescription(question.getDesc());
 	    	q.setGrade(Integer.parseInt(question.getGrade()));
 	    	q.setTitle(question.getTitle());
-	    	q.setReview(prepository.findOne(Long.parseLong(question.getReviewid())));
+	    	q.setReview(prepository.findById(Long.parseLong(question.getReviewid())).get());
 	  
 	    	qrepository.save(q);
 			response = new Response("Success", q);

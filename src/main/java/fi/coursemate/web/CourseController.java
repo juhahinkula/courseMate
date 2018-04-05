@@ -2,6 +2,7 @@ package fi.coursemate.web;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -9,7 +10,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,7 +23,6 @@ import fi.coursemate.domain.PeerReview;
 import fi.coursemate.domain.PeerReviewRepository;
 import fi.coursemate.domain.Question;
 import fi.coursemate.domain.QuestionRepository;
-import fi.coursemate.domain.Response;
 import fi.coursemate.domain.SelectedCourse;
 import fi.coursemate.domain.Student;
 import fi.coursemate.domain.StudentRepository;
@@ -64,8 +63,8 @@ public class CourseController {
 	 */
 	@RequestMapping("/coursestudents/{id}")
 	public String coursestudents(@PathVariable("id") Long courseid, Model model) {
-		Course course = crepository.findOne(courseid);
-		model.addAttribute("students", course.getStudents());
+		Optional<Course> course = crepository.findById(courseid);
+		model.addAttribute("students", course.get().getStudents());
 		model.addAttribute("courseid", courseid);
 		return "coursestudents";
     }	
@@ -80,9 +79,9 @@ public class CourseController {
 	@PreAuthorize("hasAnyAuthority('ADMIN' ,'SUPERUSER')")	
 	@RequestMapping("/archivecourse/{id}")
 	public String archiveCourse(@PathVariable("id") Long courseid, Model model) {
-		Course course = crepository.findOne(courseid);
-		course.setStatus("CLOSED");
-		crepository.save(course);
+		Optional<Course> course = crepository.findById(courseid);
+		course.get().setStatus("CLOSED");
+		crepository.save(course.get());
     	return "redirect:/courses";
     }		
 	
@@ -96,14 +95,14 @@ public class CourseController {
 	@PreAuthorize("hasAnyAuthority('ADMIN' ,'SUPERUSER')")	
     @RequestMapping(value = "/editcourse/{id}")
     public String editCourse(@PathVariable("id") Long courseId, Model model){
-		Course course = crepository.findOne(courseId);
+		Optional<Course> course = crepository.findById(courseId);
 		// Course list for copy question functionality
 		List<Course> courses = (List<Course>)crepository.findByStatus("OPEN");
-    	model.addAttribute("course", course);
+    	model.addAttribute("course", course.get());
     	model.addAttribute("courses", courses);
     	// Copy course drop down list
     	model.addAttribute("selectedCourse", new SelectedCourse());
-    	model.addAttribute("questions", cqrepository.findByCourseOrderByQuestionorder(course));
+    	model.addAttribute("questions", cqrepository.findByCourseOrderByQuestionorder(course.get()));
         return "editCourse";
     }	    
 
@@ -136,7 +135,7 @@ public class CourseController {
 	@PreAuthorize("hasAnyAuthority('SUPERUSER')")
     @RequestMapping(value = "/deletecourse/{id}", method = RequestMethod.GET)
     public String deleteCourse(@PathVariable("id") Long courseId, Model model) {
-    	crepository.delete(courseId);
+    	crepository.deleteById(courseId);
         return "redirect:/courses";
     }     
 
@@ -157,13 +156,12 @@ public class CourseController {
      */
     @RequestMapping(value = "/review/{id}/{courseid}")
     public String review(@PathVariable("id") Long studentId, @PathVariable("courseid") Long courseId, Model model){
-    	Student s = repository.findOne(studentId);
-    	Course c = crepository.findOne(courseId);
-    	System.out.println("Courseid: " + c.getCourseid());
+    	Optional<Student> s = repository.findById(studentId);
+    	Optional<Course> c = crepository.findById(courseId);
     	// Get logged in user = reviewer
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     	String reviewer = authentication.getName();
-    	List<PeerReview> reviews = prepository.findByStudentAndCourseAndCreatedBy(s, c, reviewer);
+    	List<PeerReview> reviews = prepository.findByStudentAndCourseAndCreatedBy(s.get(), c.get(), reviewer);
     	PeerReview review;
     	Question question = null;
     	List<Question> questions = new ArrayList<Question>(); 
@@ -175,11 +173,11 @@ public class CourseController {
     		review.setQuestions(questions);
     	}
     	else {
-    		review = new PeerReview(s, c);
+    		review = new PeerReview(s.get(), c.get());
     		prepository.save(review);
 
     		// Add questions according to course rules
-    		List<CourseQuestion> coursequestions = cqrepository.findByCourseOrderByQuestionorder(c);
+    		List<CourseQuestion> coursequestions = cqrepository.findByCourseOrderByQuestionorder(c.get());
     		
     		for (CourseQuestion coursequestion : coursequestions) {
     	   		question = new Question("", coursequestion.getTitle(), review);
@@ -247,8 +245,8 @@ public class CourseController {
 	 */
 	@RequestMapping("/reviews/{courseid}")
 	public String courseReviews(@PathVariable("courseid") Long courseId, Model model) {
-		Course course = crepository.findOne(courseId);
-		List<PeerReview> reviews = (List<PeerReview>) prepository.findByCourseOrderByStudentAscCourseAsc(course);
+		Optional<Course> course = crepository.findById(courseId);
+		List<PeerReview> reviews = (List<PeerReview>) prepository.findByCourseOrderByStudentAscCourseAsc(course.get());
 		model.addAttribute("reviews", reviews);
     	return "coursereviews";
     }
@@ -261,7 +259,6 @@ public class CourseController {
 	 */
 	@RequestMapping("/questions/{courseid}")
 	public String courseQuestions(@PathVariable("courseid") Long courseId, Model model) {
-		Course course = crepository.findOne(courseId);
 		List<Question> questions = (List<Question>)qrepository.findByCoursecode(courseId);
 		model.addAttribute("questions", questions);
     	return "coursereviews";
