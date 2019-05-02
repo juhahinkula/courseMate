@@ -31,7 +31,7 @@ public class CoursemateApplication {
 	@Bean
 	public CommandLineRunner demo(StudentRepository repository, UserRepository urepository) {
 		return (args) -> {
-			// Create users with BCrypt encoded password (user/user, admin/admin)
+			// Create users with BCrypt encoded password (admin/admin, user1/user, user2/user...)
 			User user1 = new User("user1", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER");
 			User user2 = new User("user2", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER");
 			User user3 = new User("user3", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER");
