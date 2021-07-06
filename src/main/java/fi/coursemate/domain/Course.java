@@ -1,6 +1,7 @@
 package fi.coursemate.domain;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -39,7 +40,7 @@ public class Course {
 	private String createdBy;    
     
     @ManyToMany(mappedBy = "courses")    
-    private Set<Student> students;  
+    private Set<Student> students = new HashSet<Student>();  
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="course")
     @JsonIgnore

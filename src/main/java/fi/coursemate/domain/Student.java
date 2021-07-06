@@ -36,7 +36,7 @@ public class Student {
 	@ManyToMany(cascade = CascadeType.MERGE)
 	@JoinTable(name = "student_course", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = { @JoinColumn(name = "courseid") })
     @JsonIgnore
-	private Set<Course> courses = new HashSet<Course>(0);    
+	private Set<Course> courses = new HashSet<Course>();    
     
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="student")
     @JsonIgnore
