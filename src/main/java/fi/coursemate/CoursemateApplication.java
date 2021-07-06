@@ -1,5 +1,7 @@
 package fi.coursemate;
 
+import java.util.Arrays;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -38,13 +40,8 @@ public class CoursemateApplication {
 			User user4 = new User("user4", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER");
 			User user5 = new User("admin", "$2a$08$bCCcGjB03eulCWt3CY0AZew2rVzXFyouUolL5dkL/pBgFkUH9O4J2", "ADMIN");
 			User user6 = new User("super", "$2a$06$Gtvv7e63lyXvVV0DnEv.qegChTr1jXZ6FvI21XFxXK01tHwD2QJja", "SUPERUSER");
-			urepository.save(user1);
-			urepository.save(user2); 
-			urepository.save(user3); 
-			urepository.save(user4); 
-			urepository.save(user5); 
-			urepository.save(user6); 
-						
+			urepository.saveAll(Arrays.asList(user1, user2, user3, user4, user5, user6));
+			
 			// save students
 			repository.save(new Student("A2323", "John", "Johnson", "IT", "john@john.com", user1)); 
 			repository.save(new Student("A1123", "Mary", "Robinson", "IT", "mary@robinson.com", user2));
